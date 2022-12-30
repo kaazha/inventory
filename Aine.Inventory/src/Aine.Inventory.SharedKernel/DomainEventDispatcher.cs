@@ -3,6 +3,7 @@ using MediatR;
 
 namespace Aine.Inventory.SharedKernel;
 
+[Inject]
 public class DomainEventDispatcher : IDomainEventDispatcher
 {
   private readonly IMediator _mediator;

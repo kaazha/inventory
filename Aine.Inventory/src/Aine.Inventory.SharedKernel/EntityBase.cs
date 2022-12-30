@@ -5,9 +5,9 @@ namespace Aine.Inventory.SharedKernel;
 // This can be modified to EntityBase<TId> to support multiple key types (e.g. Guid)
 public abstract class EntityBase
 {
-  public int Id { get; set; }
+  //public TId Id { get; set; }
 
-  private List<DomainEventBase> _domainEvents = new ();
+  private readonly List<DomainEventBase> _domainEvents = new ();
   [NotMapped]
   public IEnumerable<DomainEventBase> DomainEvents => _domainEvents.AsReadOnly();
 
@@ -15,3 +15,7 @@ public abstract class EntityBase
   internal void ClearDomainEvents() => _domainEvents.Clear();
 }
 
+public abstract class EntityBase<TId> : EntityBase where TId : struct
+{
+  public TId Id { get; set; }
+}

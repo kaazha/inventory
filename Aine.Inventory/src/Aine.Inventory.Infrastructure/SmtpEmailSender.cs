@@ -1,14 +1,15 @@
 ﻿using System.Net.Mail;
 using Aine.Inventory.Core.Interfaces;
-using Microsoft.Extensions.Logging;
+using Aine.Inventory.SharedKernel;
 
 namespace Aine.Inventory.Infrastructure;
 
+[Inject(Environment = "Production")]
 public class SmtpEmailSender : IEmailSender
 {
-  private readonly ILogger<SmtpEmailSender> _logger;
+  private readonly ILogger _logger;
 
-  public SmtpEmailSender(ILogger<SmtpEmailSender> logger)
+  public SmtpEmailSender(ILogger logger)
   {
     _logger = logger;
   }
@@ -24,7 +25,7 @@ public class SmtpEmailSender : IEmailSender
     };
     message.To.Add(new MailAddress(to));
     await emailClient.SendMailAsync(message);
-    _logger.LogWarning("Sending email to {to} from {from} with subject {subject}.", to, from, subject);
+    _logger.Warn("Sending email to {to} from {from} with subject {subject}.", to, from, subject);
   }
 }
 

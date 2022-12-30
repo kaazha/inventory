@@ -1,0 +1,42 @@
+﻿
+/*
+using (var scope = app.Services.CreateScope())
+{
+  var services = scope.ServiceProvider;
+
+  try
+  {
+    var repo = services.GetRequiredService<IRepository<Category>>();
+    var count = await repo.CountAsync();
+    Console.WriteLine($"There are {count} categories!");
+  }
+  catch (Exception ex)
+  {
+    var logger = services.GetRequiredService<Microsoft.Extensions.Logging.ILogger<Program>>();
+    logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
+  }
+}
+*/
+
+/*
+ * 
+// Seed Database
+using (var scope = app.Services.CreateScope())
+{
+  var services = scope.ServiceProvider;
+
+  try
+  {
+    var context = services.GetRequiredService<AppDbContext>();
+    //                    context.Database.Migrate();
+    context.Database.EnsureCreated();
+    SeedData.Initialize(services);
+  }
+  catch (Exception ex)
+  {
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
+  }
+}
+*/
+

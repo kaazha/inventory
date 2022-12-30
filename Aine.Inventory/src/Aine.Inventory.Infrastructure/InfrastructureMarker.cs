@@ -1,7 +1,7 @@
 ﻿
 namespace Aine.Inventory.Infrastructure;
 
-public class CoreMarker
+public class InfrastructureMarker
 {
 }
 

@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
-using Aine.Inventory.Core.ContributorAggregate;
-using Aine.Inventory.Core.ProjectAggregate;
+using Aine.Inventory.Core.ProductAggregate;
 using Aine.Inventory.SharedKernel;
 using Aine.Inventory.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -18,9 +17,9 @@ public class AppDbContext : DbContext
     _dispatcher = dispatcher;
   }
 
-  public DbSet<ToDoItem> ToDoItems => Set<ToDoItem>();
-  public DbSet<Project> Projects => Set<Project>();
-  public DbSet<Contributor> Contributors => Set<Contributor>(); 
+  public DbSet<Product> Products => Set<Product>();
+
+  public DbSet<Category> Categories => Set<Category>();
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {

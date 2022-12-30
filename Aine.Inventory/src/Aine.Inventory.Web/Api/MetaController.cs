@@ -12,7 +12,7 @@ public class MetaController : BaseApiController
   [HttpGet("/info")]
   public ActionResult<string> Info()
   {
-    var assembly = typeof(WebMarker).Assembly;
+    var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
     var creationDate = System.IO.File.GetCreationTime(assembly.Location);
     var version = FileVersionInfo.GetVersionInfo(assembly.Location).ProductVersion;

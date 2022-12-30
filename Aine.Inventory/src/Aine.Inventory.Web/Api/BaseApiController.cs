@@ -8,7 +8,7 @@ namespace Aine.Inventory.Web.Api;
 /// </summary>
 [Route("api/[controller]")]
 [ApiController]
-public abstract class BaseApiController : Controller
+public abstract class BaseApiController : ControllerBase
 {
 }
 
