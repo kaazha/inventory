@@ -1,10 +1,11 @@
-﻿using Aine.Inventory.Core.ProductAggregate;
+﻿using System.Text;
+using Aine.Inventory.Core.ProductAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Aine.Inventory.Infrastructure.Data.Config;
 
-public class ProductConfiguration : IEntityTypeConfiguration<Product>
+public class ProductConfiguration : EntityConfigurationBase<Product>, IEntityTypeConfiguration<Product>
 {
   public void Configure(EntityTypeBuilder<Product> builder)
   {
@@ -15,24 +16,27 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 
     builder.Property(t => t.ProductNumber)
       .HasColumnName("product_number")
+      .IsRequired()
       .HasMaxLength(128);
+
+    builder.HasIndex(p => p.ProductNumber).IsUnique();
 
     builder.HasKey(p => p.Id);
 
     builder.Property(t => t.Name)
       .HasColumnName("name")
       .HasMaxLength(128)
-        .IsRequired();
+      .IsRequired();
 
     builder.Property(t => t.Description)
-        .HasColumnName("description")
-        .HasMaxLength(250)
-        .IsRequired(false);
+      .HasColumnName("description")
+      .HasMaxLength(250)
+      .IsRequired(false);
+    
+    builder.HasOne(p => p.Category).WithMany().OnDelete(DeleteBehavior.NoAction);
+    builder.HasOne(p => p.SubCategory).WithMany().OnDelete(DeleteBehavior.NoAction);
 
-    builder.Property(p => p.CategoryId)
-      .HasColumnName("category_id");
-
-    //builder.HasOne(p => p.Category)
+    ConfigureColumnNames(builder);
   }
 }
 

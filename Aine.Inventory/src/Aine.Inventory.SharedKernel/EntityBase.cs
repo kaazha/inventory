@@ -8,7 +8,9 @@ public abstract class EntityBase
   //public TId Id { get; set; }
 
   private readonly List<DomainEventBase> _domainEvents = new ();
+
   [NotMapped]
+  [IgnoreMember]
   public IEnumerable<DomainEventBase> DomainEvents => _domainEvents.AsReadOnly();
 
   protected void RegisterDomainEvent(DomainEventBase domainEvent) => _domainEvents.Add(domainEvent);

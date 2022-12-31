@@ -1,8 +1,8 @@
-﻿using Aine.Inventory.Core.ProductAggregate;
+﻿using Aine.Inventory.Core.CategoryAggregate;
 using Aine.Inventory.SharedKernel.Interfaces;
 using FastEndpoints;
 
-namespace Aine.Inventory.Web.Endpoints.ProductEndpoints;
+namespace Aine.Inventory.Web.Endpoints.CategoryEndpoints;
 
 public class List : EndpointWithoutRequest<CategoryListResponse>
 {

@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Aine.Inventory.Core.ProductAggregate;
+using Aine.Inventory.Core.CategoryAggregate;
 using Aine.Inventory.SharedKernel;
 using Aine.Inventory.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;

@@ -403,3 +403,11 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+
+# database folder
+db/
+*.db
+
+# log files
+log*.txt
+_logs/

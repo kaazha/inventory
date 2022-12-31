@@ -1,4 +1,4 @@
-﻿using Aine.Inventory.Core.ProductAggregate;
+﻿using Aine.Inventory.Core.CategoryAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,6 +11,8 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     builder.ToTable("categories");
 
     builder.Property(t => t.Id).HasColumnName("id");
+
+    builder.HasIndex(p => p.Name).IsUnique();
 
     builder.HasKey(p => p.Id);
 
