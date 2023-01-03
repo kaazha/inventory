@@ -3,7 +3,7 @@ using Aine.Inventory.SharedKernel;
 using Autofac;
 using Autofac.Builder;
 
-namespace Aine.Inventory.Web;
+namespace Aine.Inventory.Api;
 
 public static class CompositionRootHelper
 {

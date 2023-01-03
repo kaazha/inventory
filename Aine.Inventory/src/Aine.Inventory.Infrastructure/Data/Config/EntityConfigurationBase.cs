@@ -7,7 +7,6 @@ namespace Aine.Inventory.Infrastructure.Data.Config;
 
 public abstract class EntityConfigurationBase<T> where T : class
 {
-
   public void ConfigureColumnNames(EntityTypeBuilder<T> builder)
   {
     var properties = typeof(T)

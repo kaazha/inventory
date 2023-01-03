@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Aine.Inventory.Core.ProductAggregate;
+﻿using Aine.Inventory.Core.ProductAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,7 +8,7 @@ public class ProductConfiguration : EntityConfigurationBase<Product>, IEntityTyp
 {
   public void Configure(EntityTypeBuilder<Product> builder)
   {
-    builder.ToTable("products");
+    builder.ToTable("product");
 
     builder.Property(t => t.Id)
       .HasColumnName("id");
@@ -20,7 +19,6 @@ public class ProductConfiguration : EntityConfigurationBase<Product>, IEntityTyp
       .HasMaxLength(128);
 
     builder.HasIndex(p => p.ProductNumber).IsUnique();
-
     builder.HasKey(p => p.Id);
 
     builder.Property(t => t.Name)
@@ -30,11 +28,11 @@ public class ProductConfiguration : EntityConfigurationBase<Product>, IEntityTyp
 
     builder.Property(t => t.Description)
       .HasColumnName("description")
-      .HasMaxLength(250)
+      .HasMaxLength(500)
       .IsRequired(false);
-    
-    builder.HasOne(p => p.Category).WithMany().OnDelete(DeleteBehavior.NoAction);
+
     builder.HasOne(p => p.SubCategory).WithMany().OnDelete(DeleteBehavior.NoAction);
+    builder.HasOne(p => p.Model).WithMany().OnDelete(DeleteBehavior.NoAction);
 
     ConfigureColumnNames(builder);
   }

@@ -1,5 +1,4 @@
-﻿using Aine.Inventory.Web;
-using Xunit;
+﻿using Xunit;
 
 namespace Aine.Inventory.FunctionalTests.ControllerViews;
 

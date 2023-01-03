@@ -1,5 +1,4 @@
 ﻿using Ardalis.HttpClientTestExtensions;
-using Aine.Inventory.Web;
 using Aine.Inventory.Web.Endpoints.ContributorEndpoints;
 using Xunit;
 

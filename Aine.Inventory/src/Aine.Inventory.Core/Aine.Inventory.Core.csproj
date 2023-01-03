@@ -11,6 +11,7 @@
     <PackageReference Include="Ardalis.Result" />
     <PackageReference Include="Ardalis.Specification" />
     <PackageReference Include="MediatR" />
+    <PackageReference Include="Mapster" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +24,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
-    <Folder Include="ProductAggregate\" />
   </ItemGroup>
 </Project>

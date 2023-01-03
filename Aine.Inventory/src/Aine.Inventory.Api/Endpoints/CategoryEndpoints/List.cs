@@ -1,14 +1,15 @@
 ﻿using Aine.Inventory.Core.CategoryAggregate;
+using Aine.Inventory.Core.CategoryAggregate.Specifications;
 using Aine.Inventory.SharedKernel.Interfaces;
 using FastEndpoints;
 
-namespace Aine.Inventory.Web.Endpoints.CategoryEndpoints;
+namespace Aine.Inventory.Api.Endpoints.CategoryEndpoints;
 
 public class List : EndpointWithoutRequest<CategoryListResponse>
 {
-  private readonly IReadRepository<Category> _repository;
+  private readonly IReadRepository<ProductCategory> _repository;
 
-  public List(IReadRepository<Category> repository)
+  public List(IReadRepository<ProductCategory> repository)
   {
     _repository = repository;
   }
@@ -22,11 +23,11 @@ public class List : EndpointWithoutRequest<CategoryListResponse>
 
   public override async Task<CategoryListResponse> ExecuteAsync(CancellationToken cancellationToken)
   {
-    var categories = await _repository.ListAsync(cancellationToken);
+    var categories = await _repository.ListAsync(new AllCategoriesWithSubCategoriesSpecification(), cancellationToken);
     var response = new CategoryListResponse
     {
       Categories = categories
-        .Select(c => new CategoryRecord(c.Id, c.Name, c.Description))
+        .Select(c => new CategoryRecord(c.Id, c.Name, c.Description, c.SubCategories))
         .ToList()
     };
 

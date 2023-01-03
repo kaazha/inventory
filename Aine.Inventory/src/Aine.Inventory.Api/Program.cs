@@ -1,21 +1,19 @@
 ﻿using System.Text.Json.Serialization;
-using Ardalis.ListStartupServices;
-using FastEndpoints;
-using Autofac.Extensions.DependencyInjection;
-using FastEndpoints.Swagger.Swashbuckle;
-using FastEndpoints.ApiExplorer;
-using Microsoft.OpenApi.Models;
-using Serilog;
-using Autofac;
-using Microsoft.EntityFrameworkCore;
+using Aine.Inventory.Api;
 using Aine.Inventory.Infrastructure;
 using Aine.Inventory.Infrastructure.Data;
-using Aine.Inventory.Web;
-using MediatR;
 using Aine.Inventory.SharedKernel;
+using Ardalis.ListStartupServices;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using FastEndpoints;
+using FastEndpoints.ApiExplorer;
+using FastEndpoints.Swagger.Swashbuckle;
+using MediatR;
 using Microsoft.AspNetCore.Http.Json;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Serilog;
 
 const string DESCRIPTION = "Aine Inventory Api 1.0";
 
@@ -76,13 +74,14 @@ var builder = WebApplication.CreateBuilder(args);
   builder.Services.Configure<JsonOptions>(options =>
   {
     options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-    options.SerializerOptions.IgnoreReadOnlyProperties = true;
+    options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    //options.SerializerOptions.IgnoreReadOnlyProperties = true;
   });
 }
 
 var app = builder.Build();
 {
-  app.UsePathBase("/aine-inventory-api");
+  //app.UsePathBase("/aine-inventory-api");
 
   app.UseExceptionHandler(a => a.Run(ErrorHandler.HandleException));
   app.UseHsts();

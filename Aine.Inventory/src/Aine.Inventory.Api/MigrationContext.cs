@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Aine.Inventory.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
-namespace Aine.Inventory.Infrastructure.Data;
+namespace Aine.Inventory.Api;
 
 public class MigrationContext : AppDbContext
 {

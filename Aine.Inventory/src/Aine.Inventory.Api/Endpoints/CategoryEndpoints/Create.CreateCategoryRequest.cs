@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Aine.Inventory.Web.Endpoints.CategoryEndpoints;
+namespace Aine.Inventory.Api.Endpoints.CategoryEndpoints;
 
 public class CreateCategoryRequest
 {

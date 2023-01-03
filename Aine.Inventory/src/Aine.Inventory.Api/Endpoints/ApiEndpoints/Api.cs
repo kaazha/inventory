@@ -2,7 +2,7 @@
 using FastEndpoints;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Aine.Inventory.Web.Endpoints.ApiEndpoints;
+namespace Aine.Inventory.Api.Endpoints.ApiEndpoints;
 
 public class Api : EndpointWithoutRequest<ContentResult>
 {
@@ -18,7 +18,7 @@ public class Api : EndpointWithoutRequest<ContentResult>
     var sb = new StringBuilder("<html><body>")
       .AppendLine("<h1>Aine Inventory Api</h1>")
       .AppendLine("<h3>Version 1.0</h3>")
-      .AppendLine("<a href='swagger/index.html'>Swagger</a>")
+      .AppendLine($"<a href='{this.HttpContext.Request.PathBase}/swagger/index.html'>Swagger</a>")
       .AppendLine("</body></html>");
     return SendStringAsync(sb.ToString(), contentType: "text/html");
   }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Aine.Inventory.Web.Api;
+namespace Aine.Inventory.Api.Api;
 
 /// <summary>
 /// If your API controllers will use a consistent route convention and the [ApiController] attribute (they should)

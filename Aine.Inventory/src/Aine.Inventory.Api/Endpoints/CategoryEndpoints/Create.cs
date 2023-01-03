@@ -2,18 +2,17 @@
 using Aine.Inventory.SharedKernel.Interfaces;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Aine.Inventory.Web.Endpoints.CategoryEndpoints;
+namespace Aine.Inventory.Api.Endpoints.CategoryEndpoints;
 
 [FastEndpoints.HttpPost("/categories")]
 [AllowAnonymous]
 public class Create : Endpoint<CreateCategoryRequest, CreateCategoryResponse>
 {
-  private readonly IRepository<Category> _repository;
+  private readonly IRepository<ProductCategory> _repository;
 
-  public Create(IRepository<Category> repository)
+  public Create(IRepository<ProductCategory> repository)
   {
     _repository = repository;
   }
@@ -24,19 +23,14 @@ public class Create : Endpoint<CreateCategoryRequest, CreateCategoryResponse>
     OperationId = "Category.Create",
     Tags = new[] { "CategoryEndpoints" })
   ]
-  public override async Task<ActionResult<CreateCategoryResponse>> HandleAsync(
+  public override async Task HandleAsync(
     CreateCategoryRequest request,
     CancellationToken cancellationToken)
   {
-    if (string.IsNullOrEmpty(request.Name))
-    {
-      return new BadRequestObjectResult("Category name is required");
-    }
-
-    var newCategory = new Category(request.Name, request.Description);
+    var newCategory = new ProductCategory(request.Name, request.Description);
     var createdItem = await _repository.AddAsync(newCategory, cancellationToken);
     var response = new CreateCategoryResponse(createdItem.Id, createdItem.Name);
 
-    return  new CreatedResult($"/categories/{createdItem.Id}", response);
+    await SendAsync(response, StatusCodes.Status201Created, cancellation: cancellationToken);
   }
 }

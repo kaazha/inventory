@@ -4,18 +4,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Aine.Inventory.Infrastructure.Data.Config;
 
-public class CategoryConfiguration : IEntityTypeConfiguration<ProductCategory>
+public class SubCategoryConfiguration : IEntityTypeConfiguration<ProductSubCategory>
 {
-  public void Configure(EntityTypeBuilder<ProductCategory> builder)
+  public void Configure(EntityTypeBuilder<ProductSubCategory> builder)
   {
-    builder.ToTable("product_category");
-
-    builder.Property(t => t.Id).HasColumnName("id");
-
-    builder.HasIndex(p => p.Name).IsUnique();
-
+    builder.ToTable("product_subcategory");
     builder.HasKey(p => p.Id);
-
+    builder.Property(t => t.Id).HasColumnName("id");
+    builder.Property(t => t.CategoryId).HasColumnName("category_id");
+    builder.HasIndex(p => p.Name).IsUnique();
+    
     builder.Property(t => t.Name)
       .HasColumnName("name")
       .HasMaxLength(ProductCategory.MAX_NAME_LENGTH)
@@ -25,6 +23,8 @@ public class CategoryConfiguration : IEntityTypeConfiguration<ProductCategory>
         .HasColumnName("description")
         .HasMaxLength(250)
         .IsRequired(false);
+
+    builder.HasOne(p => p.Category).WithMany(p => p.SubCategories).OnDelete(DeleteBehavior.Cascade);
   }
 }
 

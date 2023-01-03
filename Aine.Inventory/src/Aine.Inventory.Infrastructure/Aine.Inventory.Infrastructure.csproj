@@ -16,9 +16,5 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Data\Sql\" />
-    <None Remove="Data\Sql\sqlite.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Data\Sql\sqlite.sql" />
   </ItemGroup>
 </Project>

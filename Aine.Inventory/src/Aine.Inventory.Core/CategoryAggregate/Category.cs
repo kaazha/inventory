@@ -3,17 +3,27 @@ using Aine.Inventory.SharedKernel.Interfaces;
 
 namespace Aine.Inventory.Core.CategoryAggregate;
 
-public class Category : EntityBase<int>, IAggregateRoot
+public class ProductCategory : EntityBase<int>, IAggregateRoot
 {
-  public Category() { }
+  public const int MAX_NAME_LENGTH = 50;
 
-  public Category(string name, string? description)
+  private ProductCategory() { }
+
+  public ProductCategory(string? name, string? description)
   {
-    Name = name;
+    Validate(name);
+    Name = name!;
     Description = description;
   }
 
-  public string Name { get; set; } = default!;
-  public string? Description { get; set; }
+  public string Name { get; private set; } = default!;
+  public string? Description { get; private set; }
+  public ICollection<ProductSubCategory> SubCategories { get; private set; } = default!;
+
+  internal static void Validate(string? name)
+  {
+    GuardModel.Against.NullOrEmpty(name, "Category Name can't be empty!");
+    GuardModel.Against.TooLong(name!, MAX_NAME_LENGTH, $"Category Name can't exceed {MAX_NAME_LENGTH} characters!");
+  }
 }
 

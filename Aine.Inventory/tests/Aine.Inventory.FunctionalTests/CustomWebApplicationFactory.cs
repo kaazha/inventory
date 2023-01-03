@@ -2,7 +2,6 @@
 using Aine.Inventory.Infrastructure;
 using Aine.Inventory.Infrastructure.Data;
 using Aine.Inventory.UnitTests;
-using Aine.Inventory.Web;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;

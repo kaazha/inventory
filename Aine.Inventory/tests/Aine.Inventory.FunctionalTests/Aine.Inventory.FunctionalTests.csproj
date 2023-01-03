@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Aine.Inventory.Web\Aine.Inventory.Web.csproj" />
+    <ProjectReference Include="..\..\src\Aine.Inventory.Web\Aine.Inventory.Api.csproj" />
     <ProjectReference Include="..\Aine.Inventory.UnitTests\Aine.Inventory.UnitTests.csproj" />
   </ItemGroup>
 

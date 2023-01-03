@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Aine.Inventory.Web.Api;
+namespace Aine.Inventory.Api.Api;
 
 public class MetaController : BaseApiController
 {

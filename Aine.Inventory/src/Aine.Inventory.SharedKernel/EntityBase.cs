@@ -5,12 +5,11 @@ namespace Aine.Inventory.SharedKernel;
 // This can be modified to EntityBase<TId> to support multiple key types (e.g. Guid)
 public abstract class EntityBase
 {
-  //public TId Id { get; set; }
-
   private readonly List<DomainEventBase> _domainEvents = new ();
 
   [NotMapped]
   [IgnoreMember]
+  [System.Text.Json.Serialization.JsonIgnore]
   public IEnumerable<DomainEventBase> DomainEvents => _domainEvents.AsReadOnly();
 
   protected void RegisterDomainEvent(DomainEventBase domainEvent) => _domainEvents.Add(domainEvent);
