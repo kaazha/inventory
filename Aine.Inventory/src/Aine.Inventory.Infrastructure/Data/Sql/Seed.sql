@@ -172,3 +172,21 @@ INSERT INTO product_model(id, [name], [description]) VALUES
 (126,'LL Road Rear Wheel','Replacement road rear wheel for entry-level cyclist.'), 
 (127,'Rear Derailleur','Wide-link design.'),
 (128,'Rear Brakes', '');
+
+
+insert into [location] (id, [name])
+  values 
+  (1, 'Tool Crib'), 
+(2, 'Sheet Metal Racks'), 
+(3, 'Paint Shop'), 
+(4, 'Paint Storage'), 
+(5, 'Metal Storage'), 
+(6, 'Miscellaneous Storage'), 
+(7, 'Finished Goods Storage'), 
+(10, 'Frame Forming'), 
+(20, 'Frame Welding'), 
+(30, 'Debur and Polish'), 
+(40, 'Paint'), 
+(45, 'Specialized Paint'), 
+(50, 'Subassembly'), 
+(60, 'Final Assembly');

@@ -1,5 +1,6 @@
 ﻿using Aine.Inventory.Core.CategoryAggregate;
 using Aine.Inventory.Core.Interfaces;
+using Aine.Inventory.Core.ProductInventoryAggregate;
 using Aine.Inventory.Core.ProductModelAggregate;
 using Aine.Inventory.Core.ProductPhotoAggregate;
 using Aine.Inventory.SharedKernel;
@@ -31,6 +32,7 @@ public class Product : EntityBase<int>, IAggregateRoot, IProduct
   public bool IsActive { get; private set; } = true;
   public DateTime? ModifiedDate { get; private set; }
   public ProductPhoto? ProductPhoto { get; private set; }
+  public ICollection<ProductInventory>? Inventory { get; private set; }
 
   public static Product Create(IProduct productDto)
   {

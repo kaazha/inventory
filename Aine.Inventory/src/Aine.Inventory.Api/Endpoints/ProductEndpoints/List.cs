@@ -21,7 +21,8 @@ public class Get : Endpoint<ProductListRequest, ProductListResponse>
     AllowAnonymous();
   }
 
-  public override async Task<ProductListResponse> ExecuteAsync(ProductListRequest request, CancellationToken cancellationToken)
+  public override async Task<ProductListResponse> ExecuteAsync(ProductListRequest request,
+    CancellationToken cancellationToken)
   {
     var specification = new ProductSearchSpecification(request);
     var products = await _repository.ListAsync(specification, cancellationToken);

@@ -1,4 +1,9 @@
-﻿CREATE TABLE "product_category" (
+﻿CREATE TABLE "location" (
+    "id" INTEGER NOT NULL CONSTRAINT "PK_location" PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL
+);
+
+CREATE TABLE "product_category" (
     "id" INTEGER NOT NULL CONSTRAINT "PK_product_category" PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
     "description" TEXT NULL
@@ -44,6 +49,19 @@ CREATE TABLE "product" (
 );
 
 
+CREATE TABLE "product_inventory" (
+    "id" INTEGER NOT NULL CONSTRAINT "PK_product_inventory" PRIMARY KEY AUTOINCREMENT,
+    "location_id" INTEGER NOT NULL,
+    "product_id" INTEGER NOT NULL,
+    "shelf" TEXT NULL,
+    "bin" TEXT NULL,
+    "quantity" INTEGER NOT NULL,
+    "modified_date" TEXT NULL,
+    CONSTRAINT "FK_product_inventory_location_location_id" FOREIGN KEY ("location_id") REFERENCES "location" ("id") ON DELETE CASCADE,
+    CONSTRAINT "FK_product_inventory_product_product_id" FOREIGN KEY ("product_id") REFERENCES "product" ("id") ON DELETE CASCADE
+);
+
+
 CREATE TABLE "product_photo" (
     "id" INTEGER NOT NULL CONSTRAINT "PK_product_photo" PRIMARY KEY AUTOINCREMENT,
     "product_id" INTEGER NOT NULL,    
@@ -51,6 +69,9 @@ CREATE TABLE "product_photo" (
     "large_photo_filename" TEXT NOT NULL, 
     CONSTRAINT "FK_product_photo_product_product_id" FOREIGN KEY ("product_id") REFERENCES "product" ("id") ON DELETE CASCADE
 );
+
+
+CREATE UNIQUE INDEX "IX_location_name" ON "location" ("name");
 
 
 CREATE INDEX "IX_product_model_id" ON "product" ("model_id");
@@ -63,6 +84,12 @@ CREATE INDEX "IX_product_sub_category_id" ON "product" ("sub_category_id");
 
 
 CREATE UNIQUE INDEX "IX_product_category_name" ON "product_category" ("name");
+
+
+CREATE INDEX "IX_product_inventory_location_id" ON "product_inventory" ("location_id");
+
+
+CREATE INDEX "IX_product_inventory_product_id" ON "product_inventory" ("product_id");
 
 
 CREATE UNIQUE INDEX "IX_product_model_name" ON "product_model" ("name");

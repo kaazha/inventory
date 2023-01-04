@@ -7,7 +7,6 @@ namespace Aine.Inventory.Api.Endpoints.ProductPhotoEndpoints;
 
 public class Get : Endpoint<ProductPhotoRequest>
 {
-  internal const string ProductPhotoFolder = "C:\\$kaz\\product_photo";
   private readonly IReadRepository<ProductPhoto> _repository;
 
   public Get(IReadRepository<ProductPhoto> repository)
@@ -42,7 +41,14 @@ public class Get : Endpoint<ProductPhotoRequest>
       return;
     }
 
-    var fullPath = Path.Combine(ProductPhotoFolder, fileName);
+    var productPhotoLocation = Config.GetValue<string>("ProductPhotoLocation");
+    if(IsUrl(productPhotoLocation))
+    {
+      await SendRedirectAsync($"{productPhotoLocation}/{fileName}");
+      return;
+    }
+
+    var fullPath = Path.Combine(productPhotoLocation, fileName);
     if (!File.Exists(fullPath))
     {
       await SendNotFoundAsync(cancellationToken);
@@ -56,6 +62,8 @@ public class Get : Endpoint<ProductPhotoRequest>
       cancellation: cancellationToken
     );
   }
+
+  public static bool IsUrl(string url) => !string.IsNullOrEmpty(url) && url.StartsWith("http", StringComparison.OrdinalIgnoreCase);
 
   public class ProductPhotoRequest
   {
