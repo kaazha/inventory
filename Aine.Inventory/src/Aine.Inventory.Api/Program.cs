@@ -118,12 +118,10 @@ var app = builder.Build();
   app.UseCors();
   app.UseAuthentication();
   app.UseAuthorization();
-  try {
-    app.UseFastEndpoints();
-  } catch(Exception ex)
+  app.UseFastEndpoints(c =>
   {
-    Console.WriteLine(ex.Message);
-  }
+    c.Endpoints.RoutePrefix = "api";
+  });
 
   app.UseHttpsRedirection();
   app.UseStaticFiles();

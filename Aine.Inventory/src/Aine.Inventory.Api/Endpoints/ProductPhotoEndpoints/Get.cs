@@ -1,11 +1,10 @@
 ﻿using Aine.Inventory.Core.ProductPhotoAggregate;
 using Aine.Inventory.SharedKernel.Interfaces;
 using FastEndpoints;
-using static Aine.Inventory.Api.Endpoints.ProductPhotoEndpoints.Get;
 
 namespace Aine.Inventory.Api.Endpoints.ProductPhotoEndpoints;
 
-public class Get : Endpoint<ProductPhotoRequest>
+public class Get : Endpoint<Get.ProductPhotoRequest>
 {
   private readonly IReadRepository<ProductPhoto> _repository;
 
@@ -17,8 +16,10 @@ public class Get : Endpoint<ProductPhotoRequest>
   public override void Configure()
   {
     Verbs(Http.GET);
-    Routes("/products/{productId}/photo/thumbnail",
-           "/products/{productId}/photo/large");
+    Routes("/product-photo/{productId}");
+    //Routes("/products/{productId}/photo/thumbnail",
+    //       "/products/{productId}/photo/large",
+    //       "/product-photo/{productId}");
     AllowAnonymous();
   }
 
@@ -54,16 +55,16 @@ public class Get : Endpoint<ProductPhotoRequest>
       await SendNotFoundAsync(cancellationToken);
       return;
     }
-
+    
     var imageType = Path.GetExtension(fileName)[1..];
-    await SendStreamAsync(File.OpenRead(fullPath),
-      fileName,
+    await SendFileAsync(new FileInfo(fullPath),
       contentType: $"image/{imageType}",
       cancellation: cancellationToken
     );
   }
 
-  public static bool IsUrl(string url) => !string.IsNullOrEmpty(url) && url.StartsWith("http", StringComparison.OrdinalIgnoreCase);
+  public static bool IsUrl(string url) 
+    => !string.IsNullOrEmpty(url) && url.StartsWith("http", StringComparison.OrdinalIgnoreCase);
 
   public class ProductPhotoRequest
   {

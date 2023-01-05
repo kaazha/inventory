@@ -6,7 +6,9 @@ namespace Aine.Inventory.Core.ProductAggregate.Specifications;
 
 public class ProductSearchSpecification : Specification<Product>
 {
-  public ProductSearchSpecification(IProductSearchParams @params)
+  public ProductSearchSpecification() : this(default) { }
+
+  public ProductSearchSpecification(IProductSearchParams? @params)
   {
     Expression<Func<Product, bool>> predicate = p => p.IsActive == true;
     if (@params?.CategoryId > 0) predicate = predicate.AndAlso(p => p.SubCategory!.CategoryId == @params.CategoryId!);
@@ -18,7 +20,9 @@ public class ProductSearchSpecification : Specification<Product>
       .Where(predicate)
       .Include(p => p.Model)
       .Include(p => p.SubCategory)
+        .ThenInclude(c => c!.Category)
       //.Include(p => p.ProductPhoto)
+      .OrderBy(p => p.ProductNumber)
       .AsSplitQuery();
   }
 }
