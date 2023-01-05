@@ -5,11 +5,11 @@ using FastEndpoints;
 
 namespace Aine.Inventory.Api.Endpoints.ProductEndpoints;
 
-public class Get : Endpoint<ProductListRequest, ProductListResponse>
+public class List : EndpointWithoutRequest<ICollection<Product>>
 {
   private readonly IReadRepository<Product> _repository;
 
-  public Get(IReadRepository<Product> repository)
+  public List(IReadRepository<Product> repository)
   {
     _repository = repository;
   }
@@ -21,13 +21,11 @@ public class Get : Endpoint<ProductListRequest, ProductListResponse>
     AllowAnonymous();
   }
 
-  public override async Task<ProductListResponse> ExecuteAsync(ProductListRequest request,
+  public override async Task<ICollection<Product>> ExecuteAsync(
     CancellationToken cancellationToken)
   {
-    var specification = new ProductSearchSpecification(request);
-    var products = await _repository.ListAsync(specification, cancellationToken);
-    var response = new ProductListResponse { Products = products };
-    return response;
+    var products = await _repository.ListAsync(cancellationToken);
+    return products;
   }
 }
 

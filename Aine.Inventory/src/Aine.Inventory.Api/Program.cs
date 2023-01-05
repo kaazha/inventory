@@ -8,6 +8,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using FastEndpoints;
 using FastEndpoints.ApiExplorer;
+using FastEndpoints.Security;
 using FastEndpoints.Swagger.Swashbuckle;
 using MediatR;
 using Microsoft.AspNetCore.Http.Json;
@@ -30,7 +31,9 @@ var builder = WebApplication.CreateBuilder(args);
     options.MinimumSameSitePolicy = SameSiteMode.None;
   });
 
-  
+  //builder.AddJwtAuthentication();
+  builder.Services.AddAuthorization();
+
   builder.Services.AddMediatR(typeof(Program));
   
   string? connectionString = builder.Configuration.GetConnectionString("SqliteConnection");
@@ -41,16 +44,31 @@ var builder = WebApplication.CreateBuilder(args);
         .LogTo(Console.WriteLine)
         .EnableDetailedErrors()
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
-  );  
+  );
+
+  builder.Services.AddCors(options =>
+  {
+    options.AddDefaultPolicy(builder =>
+        builder
+        .AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .WithExposedHeaders("Content-Disposition")
+        );
+  });
+  builder.Services.AddControllers();
   //builder.Services.AddControllersWithViews().AddNewtonsoftJson();
   //builder.Services.AddRazorPages();
   builder.Services.AddFastEndpoints();
+  builder.Services.AddJWTBearerAuth(builder.Configuration["Jwt:Key"], tokenValidation: v => builder.GetTokenValidationParameters(v)); // JWT integration with FastEndpoints
+  // FastEndpoints.Swagger.Extensions.AddSwaggerDoc(builder.Services); 
   builder.Services.AddFastEndpointsApiExplorer();
-  builder.Services.AddSwaggerGen(c =>
+  builder.Services.AddSwaggerGen(options =>
   {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = DESCRIPTION, Version = "v1" });
-    c.EnableAnnotations();
-    c.OperationFilter<FastEndpointsOperationFilter>();
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = DESCRIPTION, Version = "v1" });
+    options.EnableAnnotations();
+    options.OperationFilter<FastEndpointsOperationFilter>();
+    options.AddApiSecurityDefinition();
   });
 
   // add list services for diagnostic purposes - see https://github.com/ardalis/AspNetCoreStartupServices
@@ -85,7 +103,7 @@ var app = builder.Build();
 
   app.UseExceptionHandler(a => a.Run(ErrorHandler.HandleException));
   app.UseHsts();
-
+  
   //if (app.Environment.IsDevelopment())
   //{
   //  app.UseDeveloperExceptionPage();
@@ -97,6 +115,9 @@ var app = builder.Build();
   //  app.UseHsts();
   //}
   app.UseRouting();
+  app.UseCors();
+  app.UseAuthentication();
+  app.UseAuthorization();
   try {
     app.UseFastEndpoints();
   } catch(Exception ex)
@@ -109,13 +130,15 @@ var app = builder.Build();
   app.UseCookiePolicy();
 
   // Enable middleware to serve generated Swagger as a JSON endpoint.
-  app.UseSwagger();
+  app.UseSwagger(); //SwaggerBuilderExtensions.UseSwagger(app);   //app.UseSwagger();
 
   // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
   app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", DESCRIPTION));
+  //app.UseSwaggerGen(); //add this
 
   //app.MapDefaultControllerRoute();
   //app.MapRazorPages();
+  app.MapControllers();
 
 }
 
