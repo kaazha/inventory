@@ -2,11 +2,10 @@
 using Aine.Inventory.Core.ProductAggregate.Specifications;
 using Aine.Inventory.SharedKernel.Interfaces;
 using FastEndpoints;
-using Mapster;
 
 namespace Aine.Inventory.Api.Endpoints.ProductEndpoints;
 
-public class Search : Endpoint<ProductListRequest, ProductSearchResponse>
+public class Search : Endpoint<ProductListRequest, IEnumerable<ProductDto>>
 {
   private readonly IReadRepository<Product> _repository;
 
@@ -22,13 +21,12 @@ public class Search : Endpoint<ProductListRequest, ProductSearchResponse>
     AllowAnonymous();
   }
 
-  public override async Task<ProductSearchResponse> ExecuteAsync(ProductListRequest request,
+  public override async Task<IEnumerable<ProductDto>> ExecuteAsync(ProductListRequest request,
     CancellationToken cancellationToken)
   {
     var specification = new ProductSearchSpecification(request);
     var products = await _repository.ListAsync(specification, cancellationToken);
-    var response = new ProductSearchResponse { Products = products.Map() };
-    return response;
+    return products.Map();
   }
 }
 

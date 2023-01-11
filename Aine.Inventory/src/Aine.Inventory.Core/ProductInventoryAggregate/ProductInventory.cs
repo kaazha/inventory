@@ -20,7 +20,7 @@ public class ProductInventory : EntityBase<int>, IAggregateRoot, IInventory
     ModifiedDate = DateTime.UtcNow;
   }
 
-  private ProductInventory() { }
+  public ProductInventory() { }
 
   public int LocationId { get; private set; }
   public Location? Location { get; private set; }

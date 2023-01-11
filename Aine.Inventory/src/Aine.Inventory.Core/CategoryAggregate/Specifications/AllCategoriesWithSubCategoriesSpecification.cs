@@ -6,6 +6,8 @@ public class AllCategoriesWithSubCategoriesSpecification : Specification<Product
 {
   public AllCategoriesWithSubCategoriesSpecification()
   {
-    Query.Include(c => c.SubCategories);
+    Query
+      .Include(c => c.SubCategories.OrderBy(c => c.Name))
+      .OrderBy(c => c.Name);
   }
 }

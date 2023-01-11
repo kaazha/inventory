@@ -1,10 +1,9 @@
 ﻿using System.Linq.Expressions;
 using Aine.Inventory.SharedKernel;
-using Ardalis.Specification;
 
 namespace Aine.Inventory.Core.ProductAggregate.Specifications;
 
-public class ProductSearchSpecification : Specification<Product>
+public class ProductSearchSpecification : ProductSpecification
 {
   public ProductSearchSpecification() : this(default) { }
 
@@ -16,13 +15,6 @@ public class ProductSearchSpecification : Specification<Product>
     if (!string.IsNullOrEmpty(@params?.Filter))
       predicate = predicate.AndAlso(p => p.Name.Contains(@params.Filter!) || p.ProductNumber.Contains(@params.Filter!));
 
-    Query
-      .Where(predicate)
-      .Include(p => p.Model)
-      .Include(p => p.SubCategory)
-        .ThenInclude(c => c!.Category)
-      //.Include(p => p.ProductPhoto)
-      .OrderBy(p => p.ProductNumber)
-      .AsSplitQuery();
+    UpdateQuery(predicate);
   }
 }

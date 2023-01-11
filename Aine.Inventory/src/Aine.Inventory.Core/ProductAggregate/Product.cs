@@ -32,7 +32,7 @@ public class Product : EntityBase<int>, IAggregateRoot, IProduct
   public bool IsActive { get; private set; } = true;
   public DateTime? ModifiedDate { get; private set; }
   public ProductPhoto? ProductPhoto { get; private set; }
-  public ICollection<ProductInventory>? Inventory { get; private set; }
+  public ICollection<ProductInventory> Inventory { get; private set; } = default!;
 
   public static Product Create(IProduct productDto)
   {

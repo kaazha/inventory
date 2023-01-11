@@ -5,7 +5,7 @@ using FastEndpoints;
 
 namespace Aine.Inventory.Api.Endpoints.CategoryEndpoints;
 
-public class List : EndpointWithoutRequest<CategoryListResponse>
+public class List : EndpointWithoutRequest<ICollection<CategoryRecord>>
 {
   private readonly IReadRepository<ProductCategory> _repository;
 
@@ -21,17 +21,12 @@ public class List : EndpointWithoutRequest<CategoryListResponse>
     AllowAnonymous();
   }
 
-  public override async Task<CategoryListResponse> ExecuteAsync(CancellationToken cancellationToken)
+  public override async Task<ICollection<CategoryRecord>> ExecuteAsync(CancellationToken cancellationToken)
   {
     var categories = await _repository.ListAsync(new AllCategoriesWithSubCategoriesSpecification(), cancellationToken);
-    var response = new CategoryListResponse
-    {
-      Categories = categories
+    return categories
         .Select(c => new CategoryRecord(c.Id, c.Name, c.Description, c.SubCategories))
-        .ToList()
-    };
-
-    return response;
+        .ToList();
   }
 }
 

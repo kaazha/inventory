@@ -1,12 +1,7 @@
-﻿using Aine.Inventory.Core.CategoryAggregate;
-using Aine.Inventory.Core.Interfaces;
+﻿using Aine.Inventory.Core.Interfaces;
+using Aine.Inventory.Core.ProductInventoryAggregate;
 
 namespace Aine.Inventory.Api.Endpoints.ProductEndpoints;
-
-public class ProductSearchResponse
-{
-  public IEnumerable<ProductDto> Products { get; set; } = new List<ProductDto>();
-}
 
 public class ProductDto : IProduct
 {
@@ -31,6 +26,5 @@ public class ProductDto : IProduct
   public string? CategoryName { get; set; }
   public int? CategoryId { get; set; }
   public string? SubCategoryName { get; set; }
-  //public ProductSubCategory? SubCategory { get; set; }
-  //public ProductCategory? Category => this.SubCategory?.Category;
+  public ICollection<ProductInventory>? Inventory { get; set; }
 }

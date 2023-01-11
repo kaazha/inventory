@@ -5,7 +5,7 @@ namespace Aine.Inventory.Core.ProductInventoryAggregate;
 
 public class Location : EntityBase<int>, IAggregateRoot
 {
-  private Location() { }
+  public Location() { }
 
   public Location(string? name)
   {

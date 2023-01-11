@@ -16,10 +16,9 @@ public class Get : Endpoint<Get.ProductPhotoRequest>
   public override void Configure()
   {
     Verbs(Http.GET);
-    Routes("/product-photo/{productId}");
-    //Routes("/products/{productId}/photo/thumbnail",
-    //       "/products/{productId}/photo/large",
-    //       "/product-photo/{productId}");
+    Routes("/products/{productId}/photo/thumbnail",
+           "/products/{productId}/photo/large");
+    
     AllowAnonymous();
   }
 
