@@ -9,7 +9,13 @@ public class ProductSearchSpecification : ProductSpecification
 
   public ProductSearchSpecification(IProductSearchParams? @params)
   {
-    Expression<Func<Product, bool>> predicate = p => p.IsActive == true;
+    if (@params?.ProductId > 0)
+    {
+      UpdateQuery(p => p.Id == @params.ProductId!);
+      return;
+    }
+
+    Expression<Func<Product, bool>> predicate = p => p.IsActive == true;    
     if (@params?.CategoryId > 0) predicate = predicate.AndAlso(p => p.SubCategory!.CategoryId == @params.CategoryId!);
     if (@params?.SubCategoryId > 0) predicate = predicate.AndAlso(p => p.SubCategoryId == @params.SubCategoryId!);
     if (!string.IsNullOrEmpty(@params?.Filter))

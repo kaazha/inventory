@@ -1,4 +1,4 @@
-﻿namespace Aine.Inventory.SharedKernel;
+﻿namespace Aine.Inventory.SharedKernel.Interfaces;
 
 public interface ILogger
 {

@@ -1,9 +1,9 @@
-﻿using Aine.Inventory.Core.ProductAggregate;
+﻿using System.Threading;
+using Aine.Inventory.Core.ProductAggregate;
 using Aine.Inventory.Core.ProductAggregate.Specifications;
 using Aine.Inventory.SharedKernel.Interfaces;
 using FastEndpoints;
 using Mapster;
-using MediatR;
 
 namespace Aine.Inventory.Api.Endpoints.ProductEndpoints;
 
@@ -23,12 +23,32 @@ public class List : EndpointWithoutRequest<IEnumerable<ProductDto>>
     AllowAnonymous();
   }
 
-  public override async Task<IEnumerable<ProductDto>> ExecuteAsync(
-    CancellationToken cancellationToken)
+  public override async Task HandleAsync(CancellationToken cancellationToken)
   {
-    var specification = new ProductSearchSpecification();
+    var productId = Query<int>("productId", false);
+    if (productId > 0)
+    {
+      await GetProductById(productId, cancellationToken);
+      return;
+    }
+
+    var specification = new ProductSearchSpecification(new ProductListRequest { ProductId = productId });
     var products = await _repository.ListAsync(specification, cancellationToken);
-    return products.Map();
+    await SendOkAsync(products.Map());
+  }
+
+  private async Task GetProductById(int productId, CancellationToken cancellationToken)
+  {
+    var specification = new ProductByIdSpecification(productId);
+    var product = await _repository.FirstOrDefaultAsync(specification, cancellationToken);
+    if (product == null)
+    {
+      await SendNotFoundAsync(cancellationToken);
+      return;
+    }
+
+    var dto = product.Adapt<ProductDto>(MapperExtensions.ProductMapperConfig);
+    await SendOkAsync(new[] { dto });
   }
 }
 

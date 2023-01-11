@@ -1,4 +1,5 @@
 ﻿using Aine.Inventory.SharedKernel;
+using Aine.Inventory.SharedKernel.Guard;
 using Aine.Inventory.SharedKernel.Interfaces;
 
 namespace Aine.Inventory.Core.CategoryAggregate;

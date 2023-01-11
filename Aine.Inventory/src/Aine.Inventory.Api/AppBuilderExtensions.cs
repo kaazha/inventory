@@ -8,6 +8,7 @@ namespace Aine.Inventory.Api;
 
 public static class AppBuilderExtensions
 {
+   /*
   public static void AddJwtAuthentication(this WebApplicationBuilder builder)
   {
     builder.Services.AddAuthentication(options =>
@@ -26,16 +27,17 @@ public static class AppBuilderExtensions
   {
     return new TokenValidationParameters
     {
-      ValidIssuer = builder.Configuration["Jwt:Issuer"],
-      ValidAudience = builder.Configuration["Jwt:Audience"],
+      //ValidIssuer = builder.Configuration["Jwt:Issuer"],
+      //ValidAudience = builder.Configuration["Jwt:Audience"],
       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-      ValidateIssuer = true,
-      ValidateAudience = true,
-      ValidateLifetime = false,
+      ValidateIssuer = false,
+      ValidateAudience = false,
+      ValidateLifetime = true,
       ValidateIssuerSigningKey = true
     };
   }
 
+ 
   public static TokenValidationParameters GetTokenValidationParameters(this WebApplicationBuilder builder, TokenValidationParameters p)
   {
     p.ValidIssuer = builder.Configuration["Jwt:Issuer"];
@@ -47,6 +49,7 @@ public static class AppBuilderExtensions
     p.ValidateIssuerSigningKey = true;
     return p;
   }
+  */
 
   public static void AddApiSecurityDefinition(this SwaggerGenOptions option)
   {

@@ -1,5 +1,7 @@
 ﻿using Aine.Inventory.Core.Interfaces;
+using Aine.Inventory.SharedKernel.Interfaces;
 using FastEndpoints;
+using FastEndpoints.Security;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -25,13 +27,39 @@ public class Auth : Endpoint<AuthRequest, AuthResponse>
 
   public override async Task HandleAsync(AuthRequest request, CancellationToken ct)
   {
-    var result = await _authenticator.AuthenticateUserAsync(new UserModel(request.UserName, request.Password, request.CorpName));
+    var userModel = new UserModel(request.UserName, request.Password, request.CorpName);
+    var result = await _authenticator.AuthenticateUserAsync(userModel);
     if (!result.IsSuccess)
     {
       await SendUnauthorizedAsync(ct);
       return;
     }
 
+    var token = GenerateFastEndpointsJWTToken(result.Value);
+
+    await SendAsync(new AuthResponse(token));
+  }
+
+  private string GenerateFastEndpointsJWTToken(IUser user)
+  {
+    var tokenSigningKey = Config["Jwt:Key"] ?? "NO_KEY";
+
+    var jwtToken = JWTBearer.CreateToken(
+                signingKey: tokenSigningKey,
+                expireAt: DateTime.UtcNow.AddDays(1),
+                claims: new[] { 
+                  ("UserName", user.UserName),
+                  ("UserId", user.UserId.ToString()),
+                  ("CorpName", user.CorpName ?? "Default") 
+                },
+                roles: user.Roles,
+                permissions: user.Permissions);
+
+    return jwtToken;
+  }
+
+  private string GenerateJWTToken(AuthRequest request)
+  {
     var issuer = Config["Jwt:Issuer"];
     var audience = Config["Jwt:Audience"];
     var key = Encoding.ASCII.GetBytes(Config["Jwt:Key"] ?? "NO_KEY");
@@ -55,10 +83,8 @@ public class Auth : Endpoint<AuthRequest, AuthResponse>
 
     var tokenHandler = new JwtSecurityTokenHandler();
     var token = tokenHandler.CreateToken(tokenDescriptor);
-    var jwtToken = tokenHandler.WriteToken(token);
-    var stringToken = tokenHandler.WriteToken(token);
-    
-    await SendAsync(new AuthResponse(stringToken));
+    //var jwtToken = tokenHandler.WriteToken(token);
+    return tokenHandler.WriteToken(token);
   }
 }
 

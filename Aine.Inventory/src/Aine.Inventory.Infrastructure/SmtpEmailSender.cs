@@ -1,6 +1,7 @@
 ﻿using System.Net.Mail;
 using Aine.Inventory.Core.Interfaces;
 using Aine.Inventory.SharedKernel;
+using Aine.Inventory.SharedKernel.Interfaces;
 
 namespace Aine.Inventory.Infrastructure;
 

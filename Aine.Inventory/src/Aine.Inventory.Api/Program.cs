@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using Aine.Inventory.Api;
 using Aine.Inventory.Infrastructure;
 using Aine.Inventory.Infrastructure.Data;
@@ -32,7 +33,7 @@ var builder = WebApplication.CreateBuilder(args);
   });
 
   //builder.AddJwtAuthentication();
-  builder.Services.AddAuthorization();
+  //builder.Services.AddAuthorization();
 
   builder.Services.AddMediatR(typeof(Program));
   
@@ -60,7 +61,7 @@ var builder = WebApplication.CreateBuilder(args);
   //builder.Services.AddControllersWithViews().AddNewtonsoftJson();
   //builder.Services.AddRazorPages();
   builder.Services.AddFastEndpoints();
-  builder.Services.AddJWTBearerAuth(builder.Configuration["Jwt:Key"], tokenValidation: v => builder.GetTokenValidationParameters(v)); // JWT integration with FastEndpoints
+  builder.Services.AddJWTBearerAuth(builder.Configuration["Jwt:Key"]); //, tokenValidation: v => builder.GetTokenValidationParameters(v)); // JWT integration with FastEndpoints
   // FastEndpoints.Swagger.Extensions.AddSwaggerDoc(builder.Services); 
   builder.Services.AddFastEndpointsApiExplorer();
   builder.Services.AddSwaggerGen(options =>
@@ -120,6 +121,7 @@ var app = builder.Build();
   app.UseAuthorization();
   app.UseFastEndpoints(c =>
   {
+    c.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     c.Endpoints.RoutePrefix = "api";
   });
 

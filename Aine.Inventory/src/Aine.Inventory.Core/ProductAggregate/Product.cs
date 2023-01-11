@@ -4,6 +4,7 @@ using Aine.Inventory.Core.ProductInventoryAggregate;
 using Aine.Inventory.Core.ProductModelAggregate;
 using Aine.Inventory.Core.ProductPhotoAggregate;
 using Aine.Inventory.SharedKernel;
+using Aine.Inventory.SharedKernel.Guard;
 using Aine.Inventory.SharedKernel.Interfaces;
 using Mapster;
 

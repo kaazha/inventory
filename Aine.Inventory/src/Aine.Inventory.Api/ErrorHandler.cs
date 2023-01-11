@@ -1,4 +1,4 @@
-﻿using Aine.Inventory.SharedKernel;
+﻿using Aine.Inventory.SharedKernel.Guard;
 using Microsoft.AspNetCore.Diagnostics;
 using static System.Net.Mime.MediaTypeNames;
 

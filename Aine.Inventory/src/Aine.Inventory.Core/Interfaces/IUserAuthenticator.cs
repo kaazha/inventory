@@ -1,10 +1,11 @@
-﻿using Ardalis.Result;
+﻿using Aine.Inventory.SharedKernel.Interfaces;
+using Ardalis.Result;
 
 namespace Aine.Inventory.Core.Interfaces;
 
 public interface IUserAuthenticator
 {
-  Task<Result> AuthenticateUserAsync(UserModel user);
+  Task<Result<IUser>> AuthenticateUserAsync(UserModel user);
 }
 
 public record UserModel(string UserName, string Password, string? CorpName = default);
