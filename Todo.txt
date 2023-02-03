@@ -1,0 +1,16 @@
+- Dashboard
+	- quantity by category
+	- outflows - this week
+	- inflows - this week
+- Product
+	- new fields: Expiry date etc
+	- create
+	- update
+	- delete
+- product ui
+	- polish
+	- filters
+- Outflows & inflows
+	- CRUD
+
+ 
