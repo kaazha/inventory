@@ -3,14 +3,22 @@ using Aine.Inventory.SharedKernel.Interfaces;
 
 namespace Aine.Inventory.Core.CategoryAggregate;
 
-public class ProductSubCategory : EntityBase<int>, IAggregateRoot
+public class ProductSubCategory : EntityBase<int>, IAggregateRoot, ISubCategory
 {
   private ProductSubCategory() { }
 
-  public ProductSubCategory(string? name, int categoryId, string? description)
+  public ProductSubCategory(ISubCategory subCategory) : this(
+    subCategory.Id,
+    subCategory.Name,
+    subCategory.CategoryId,
+    subCategory.Description
+    ) { }
+
+  public ProductSubCategory(int id, string? name, int categoryId, string? description)
   {
     ProductCategory.Validate(name);
 
+    Id = id;
     Name = name!;
     Description = description;
     CategoryId = categoryId;
@@ -21,4 +29,3 @@ public class ProductSubCategory : EntityBase<int>, IAggregateRoot
   public string Name { get; private set; } = default!;
   public string? Description { get; private set; }
 }
-

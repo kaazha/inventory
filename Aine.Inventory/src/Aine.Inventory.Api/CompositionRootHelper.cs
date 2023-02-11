@@ -29,7 +29,9 @@ public static class CompositionRootHelper
 
       foreach (var targetType in types)
       {
-        Console.WriteLine($"Registering {targetType.FullName}");
+        var regType = targetType.GetGenericArguments().FirstOrDefault();
+        var typeName = (regType != null) ? $"{targetType.Name}<{regType.Name}>" : targetType.Name;
+        Console.WriteLine($"Registering {typeName}");
         switch (attribute!.Scope)
         {
           case InstanceScope.InstancePerLifetimeScope:

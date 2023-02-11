@@ -37,7 +37,7 @@ var builder = WebApplication.CreateBuilder(args);
 
   builder.Services.AddMediatR(typeof(Program));
   
-  string? connectionString = builder.Configuration.GetConnectionString("SqliteConnection");
+  string? connectionString = builder.Configuration.GetConnectionString(builder.Configuration["ConnectionString"]);
 
   builder.Services.AddDbContext<AppDbContext>(
     builder =>
@@ -80,7 +80,6 @@ var builder = WebApplication.CreateBuilder(args);
     // optional - default path to view services is /listallservices - recommended to choose your own path
     config.Path = "/listservices";
   });
-
 
   builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
   {

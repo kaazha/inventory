@@ -6,30 +6,29 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Aine.Inventory.Api.Endpoints.CategoryEndpoints;
 
-[FastEndpoints.HttpPost("/categories")]
+[FastEndpoints.HttpPost("/categories/{id}/subcategories")]
 [AllowAnonymous]
-public class Create : Endpoint<CreateCategoryRequest, ProductCategory>
+public class CreateSubCategory : Endpoint<SubCategory, ProductSubCategory>
 {
-  private readonly IRepository<ProductCategory> _repository;
+  private readonly IRepository<ProductSubCategory> _repository;
 
-  public Create(IRepository<ProductCategory> repository)
+  public CreateSubCategory(IRepository<ProductSubCategory> repository)
   {
     _repository = repository;
   }
 
   [SwaggerOperation(
-    Summary = "Creates a new Product Category",
-    Description = "Creates a new Product Category",
-    OperationId = "Category.Create",
+    Summary = "Creates a new Product SubCategory",
+    Description = "Creates a new Product SubCategory",
+    OperationId = "Category.CreateSubCategory",
     Tags = new[] { "CategoryEndpoints" })
   ]
   public override async Task HandleAsync(
-    CreateCategoryRequest request,
+    SubCategory request,
     CancellationToken cancellationToken)
   {
-    var newCategory = new ProductCategory(request);
+    var newCategory = new ProductSubCategory(request);
     var createdItem = await _repository.AddAsync(newCategory, cancellationToken);
-    //var response = new CreateCategoryResponse(createdItem.Id, createdItem.Name);
 
     await SendAsync(createdItem, StatusCodes.Status201Created, cancellation: cancellationToken);
   }

@@ -11,4 +11,7 @@
     <PackageReference Include="MediatR" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Interfaces\ICategoryRepository.config" />
+  </ItemGroup>
 </Project>
