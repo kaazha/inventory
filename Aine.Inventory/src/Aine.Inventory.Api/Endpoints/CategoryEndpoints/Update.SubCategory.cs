@@ -8,7 +8,7 @@ namespace Aine.Inventory.Api.Endpoints.CategoryEndpoints;
 
 [FastEndpoints.HttpPut("/categories/{id}/subcategories")]
 [AllowAnonymous]
-public class UpdateSubCategory : Endpoint<SubCategory>
+public class UpdateSubCategory : Endpoint<UpdateSubCategoryRequest>
 {
   private readonly IRepository<ProductSubCategory> _repository;
 
@@ -24,11 +24,11 @@ public class UpdateSubCategory : Endpoint<SubCategory>
     Tags = new[] { "CategoryEndpoints" })
   ]
   public override async Task HandleAsync(
-    SubCategory request,
+    UpdateSubCategoryRequest request,
     CancellationToken cancellationToken)
   {
     var subCategory = new ProductSubCategory(request);
     await _repository.UpdateAsync(subCategory, cancellationToken);
-    await SendOkAsync(subCategory);
+    await SendOkAsync(subCategory, cancellationToken);
   }
 }

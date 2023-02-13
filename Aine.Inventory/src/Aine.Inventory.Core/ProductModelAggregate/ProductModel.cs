@@ -10,9 +10,10 @@ public class ProductModel : EntityBase<int>, IAggregateRoot
 
   private ProductModel() { }
 
-  public ProductModel(string? name, string? description)
+  public ProductModel(int id, string? name, string? description)
   {
     Validate(name, description);
+    Id = id;
     Name = name!;
     Description = description;
   }
@@ -24,7 +25,7 @@ public class ProductModel : EntityBase<int>, IAggregateRoot
   {
     GuardModel.Against.NullOrEmpty(name, "Product Model Name can't be empty!");
     GuardModel.Against.TooLong(name!, MAX_NAME_LENGTH, $"Product Model Name can't exceed {MAX_NAME_LENGTH} characters!");
-    GuardModel.Against.NullOrEmpty(description, "Product Model Description can't be empty!");
+    // GuardModel.Against.NullOrEmpty(description, "Product Model Description can't be empty!");
   }
 }
 

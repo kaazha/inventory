@@ -13,7 +13,7 @@ CREATE TABLE "product_category" (
 CREATE TABLE "product_model" (
     "id" INTEGER NOT NULL CONSTRAINT "PK_product_model" PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
-    "description" TEXT NOT NULL
+    "description" TEXT NULL
 );
 
 

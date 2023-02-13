@@ -9,7 +9,7 @@ public class UpdateCategoryRequest : ICategory
   [Required]
   public string? Name { get; set; }
   public string? Description { get; set; }
-  public IEnumerable<SubCategory> SubCategories { get; set; } = default!;
+  public IEnumerable<UpdateSubCategoryRequest> SubCategories { get; set; } = default!;
 
   IEnumerable<ISubCategory> ICategory.SubCategories => SubCategories;
 }

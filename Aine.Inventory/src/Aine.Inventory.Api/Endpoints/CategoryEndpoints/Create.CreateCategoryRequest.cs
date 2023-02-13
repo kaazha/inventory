@@ -8,14 +8,21 @@ public class CreateCategoryRequest : ICategory
   [Required]
   public string? Name { get; set; }
   public string? Description { get; set; }
-  public List<SubCategory> SubCategories { get; set; } = default!;
-
+  public List<CreateSubCategoryRequest> SubCategories { get; set; } = default!;
   int ICategory.Id => 0;
-
   IEnumerable<ISubCategory> ICategory.SubCategories => SubCategories;
 }
 
-public class SubCategory : ISubCategory
+public class CreateSubCategoryRequest : ISubCategory
+{
+  int ISubCategory.Id => 0;
+  public int CategoryId { get; set; }
+  [Required]
+  public string? Name { get; set; }
+  public string? Description { get; set; }
+}
+
+public class UpdateSubCategoryRequest : ISubCategory
 {
   public int Id { get; set; }
   public int CategoryId { get; set; }

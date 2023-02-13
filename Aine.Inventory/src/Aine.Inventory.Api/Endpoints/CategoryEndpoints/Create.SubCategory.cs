@@ -8,7 +8,7 @@ namespace Aine.Inventory.Api.Endpoints.CategoryEndpoints;
 
 [FastEndpoints.HttpPost("/categories/{id}/subcategories")]
 [AllowAnonymous]
-public class CreateSubCategory : Endpoint<SubCategory, ProductSubCategory>
+public class CreateSubCategory : Endpoint<CreateSubCategoryRequest, ISubCategory>
 {
   private readonly IRepository<ProductSubCategory> _repository;
 
@@ -24,7 +24,7 @@ public class CreateSubCategory : Endpoint<SubCategory, ProductSubCategory>
     Tags = new[] { "CategoryEndpoints" })
   ]
   public override async Task HandleAsync(
-    SubCategory request,
+    CreateSubCategoryRequest request,
     CancellationToken cancellationToken)
   {
     var newCategory = new ProductSubCategory(request);

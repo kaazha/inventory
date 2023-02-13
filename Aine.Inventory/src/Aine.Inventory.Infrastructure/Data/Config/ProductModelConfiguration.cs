@@ -23,8 +23,7 @@ public class ProductModelConfiguration : IEntityTypeConfiguration<ProductModel>
 
     builder.Property(t => t.Description)
         .HasColumnName("description")
-        .HasMaxLength(500)
-        .IsRequired();
+        .HasMaxLength(500);
   }
 }
 

@@ -8,7 +8,7 @@ namespace Aine.Inventory.Api.Endpoints.ModelEndpoints;
 
 [HttpPost("/models")]
 [AllowAnonymous]
-public class Create : Endpoint<CreateModelRequest, CreateModelResponse>
+public class Create : Endpoint<CreateModelRequest, ProductModel>
 {
   private readonly IRepository<ProductModel> _repository;
 
@@ -27,10 +27,9 @@ public class Create : Endpoint<CreateModelRequest, CreateModelResponse>
     CreateModelRequest request,
     CancellationToken cancellationToken)
   {
-    var newModel = new ProductModel(request.Name, request.Description);
+    var newModel = new ProductModel(0, request.Name, request.Description);
     var createdItem = await _repository.AddAsync(newModel, cancellationToken);
-    var response = new CreateModelResponse(createdItem.Id, createdItem.Name);
 
-    await SendAsync(response, StatusCodes.Status201Created, cancellation: cancellationToken);
+    await SendAsync(createdItem, StatusCodes.Status201Created, cancellation: cancellationToken);
   }
 }
