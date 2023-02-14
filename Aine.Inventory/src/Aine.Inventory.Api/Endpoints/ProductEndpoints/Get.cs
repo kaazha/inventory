@@ -17,7 +17,7 @@ public class GetProduct : Endpoint<GetProductByIdRequest, ProductDto>
 
   public override void Configure()
   {
-    Get("/product/{productId}");
+    Get("/products/{productId}");
     AllowAnonymous();
   }
 

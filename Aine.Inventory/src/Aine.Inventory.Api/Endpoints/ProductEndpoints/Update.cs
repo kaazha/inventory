@@ -8,29 +8,29 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Aine.Inventory.Api.Endpoints.ProductEndpoints;
 
-[FastEndpoints.HttpPost("/products")]
+[FastEndpoints.HttpPut("/products")]
 [AllowAnonymous]
-public class Create : Endpoint<CreateProductRequest, IProduct>
+public class Update : Endpoint<UpdateProductRequest, IProduct>
 {
   private readonly IRepository<Product> _repository;
 
-  public Create(IRepository<Product> repository)
+  public Update(IRepository<Product> repository)
   {
     _repository = repository;
   }
 
   [SwaggerOperation(
-    Summary = "Creates a new Product",
-    Description = "Creates a new Product",
-    OperationId = "Product.Create",
+    Summary = "Updates a Product",
+    Description = "Updates a Product",
+    OperationId = "Product.Update",
     Tags = new[] { "ProductEndpoints" })
   ]
   public override async Task HandleAsync(
-    CreateProductRequest request,
+    UpdateProductRequest request,
     CancellationToken cancellationToken)
   {
-    var newProduct = Product.Create(request);
-    var createdItem = await _repository.AddAsync(newProduct, cancellationToken);
-    await SendAsync(createdItem);
+    var product = Product.Create(request);
+    await _repository.UpdateAsync(product, cancellationToken);
+    await SendAsync(product);
   }
 }

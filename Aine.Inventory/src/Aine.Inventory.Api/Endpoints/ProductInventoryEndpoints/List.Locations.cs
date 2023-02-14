@@ -15,7 +15,7 @@ public class GetLocations : EndpointWithoutRequest<IEnumerable<Location>>
 
   public override void Configure()
   {
-    Get("/locations");
+    Get("/locations1");
     AllowAnonymous();
   }
 
@@ -24,4 +24,3 @@ public class GetLocations : EndpointWithoutRequest<IEnumerable<Location>>
     return await _repository.ListAsync(cancellationToken);
   }
 }
-

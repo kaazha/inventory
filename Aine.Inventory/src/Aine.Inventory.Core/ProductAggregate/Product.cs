@@ -38,9 +38,10 @@ public class Product : EntityBase<int>, IAggregateRoot, IProduct
   public static Product Create(IProduct productDto)
   {
     Validate(productDto);
-    var product = new Product { /*Id = Guid.NewGuid(),*/ IsActive = true };
+    var product = new Product(); // { Id = productDto.Id, IsActive = true };
     productDto.Adapt(product, MappingConfig);
     if (product.SubCategoryId == 0) product.SubCategoryId = null;
+    if (product.Id == 0) product.IsActive = true;
     return product;
   }
 
@@ -60,7 +61,7 @@ public class Product : EntityBase<int>, IAggregateRoot, IProduct
   private static TypeAdapterConfig MappingConfig => _mappingConfig ??=
     TypeAdapterConfig<IProduct, Product>
       .NewConfig()
-      .Ignore(dest => dest.Id, dest => dest.IsActive)
+      //.Ignore(dest => dest.Id, dest => dest.IsActive)
       .Config;
 }
 

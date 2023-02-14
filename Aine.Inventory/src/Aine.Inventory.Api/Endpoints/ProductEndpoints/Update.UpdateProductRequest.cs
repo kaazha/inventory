@@ -2,8 +2,9 @@
 
 namespace Aine.Inventory.Api.Endpoints.ProductEndpoints;
 
-public class CreateProductRequest : IProduct
+public class UpdateProductRequest : IProduct
 {
+  public int Id { get; set; }
   public string ProductNumber { get; set; } = default!;
   public string Name { get; set; } = default!;
   public string? Description { get; set; }
@@ -18,7 +19,5 @@ public class CreateProductRequest : IProduct
   public int? ReorderPoint { get; set; }
   public double? StandardCost { get; set; }
   public double? ListPrice { get; set; }
-
-  bool IProduct.IsActive => true;
-  int IProduct.Id => 0;
+  public bool IsActive { get; set; }
 }
