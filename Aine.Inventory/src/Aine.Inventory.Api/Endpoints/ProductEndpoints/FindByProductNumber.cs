@@ -6,7 +6,7 @@ using Mapster;
 
 namespace Aine.Inventory.Api.Endpoints.ProductEndpoints;
 
-public class FindByProductNumber : Endpoint<FindByProductNumberRequest, FindByProductNumberResponse>
+public class FindByProductNumber : EndpointWithoutRequest<FindByProductNumberResponse>
 {
   private readonly IReadRepository<Product> _repository;
 
@@ -17,13 +17,13 @@ public class FindByProductNumber : Endpoint<FindByProductNumberRequest, FindByPr
 
   public override void Configure()
   {
-    Get("/products/{@productNumber}/find", x => new {x.ProductNumber});
+    Get("/products/find/{ProductNumber}");
     AllowAnonymous();
   }
 
-  public override async Task HandleAsync(FindByProductNumberRequest request, CancellationToken cancellationToken)
+  public override async Task HandleAsync(CancellationToken cancellationToken)
   {
-    var productNumber = request.ProductNumber;  // Route<string>("productNumber");
+    var productNumber = Route<string>("ProductNumber");
     var specification = new FindProductByProductNumberSpecification(productNumber!);
     var product = await _repository.FirstOrDefaultAsync(specification, cancellationToken);
     if (product == null || product.Id == null || product.Id == 0)

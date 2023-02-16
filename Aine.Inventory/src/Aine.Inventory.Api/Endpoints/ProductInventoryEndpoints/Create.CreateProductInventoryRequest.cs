@@ -5,6 +5,7 @@ namespace Aine.Inventory.Api.Endpoints.ProductInventoryEndpoints;
 
 public class CreateProductInventoryRequest : IInventory
 {
+  public int Id { get; }
   public int LocationId { get; set; }
   public int ProductId { get; set; }
   public string? Shelf { get; set; }

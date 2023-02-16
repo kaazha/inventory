@@ -12,6 +12,7 @@ using FastEndpoints.ApiExplorer;
 using FastEndpoints.Security;
 using FastEndpoints.Swagger.Swashbuckle;
 using MediatR;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -95,6 +96,12 @@ var builder = WebApplication.CreateBuilder(args);
     options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     //options.SerializerOptions.IgnoreReadOnlyProperties = true;
   });
+
+  builder.Services.Configure<FormOptions>(options =>
+  {
+    // Set the limit to 2 MB
+    // options.MultipartBodyLengthLimit = 2 * 1024 * 1024;
+  });
 }
 
 var app = builder.Build();
@@ -103,7 +110,7 @@ var app = builder.Build();
 
   app.UseExceptionHandler(a => a.Run(ErrorHandler.HandleException));
   app.UseHsts();
-  
+    
   //if (app.Environment.IsDevelopment())
   //{
   //  app.UseDeveloperExceptionPage();

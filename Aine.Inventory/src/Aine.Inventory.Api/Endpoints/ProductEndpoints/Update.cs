@@ -12,9 +12,9 @@ namespace Aine.Inventory.Api.Endpoints.ProductEndpoints;
 [AllowAnonymous]
 public class Update : Endpoint<UpdateProductRequest, IProduct>
 {
-  private readonly IRepository<Product> _repository;
+  private readonly IProductRepository _repository;
 
-  public Update(IRepository<Product> repository)
+  public Update(IProductRepository repository)
   {
     _repository = repository;
   }
@@ -29,8 +29,7 @@ public class Update : Endpoint<UpdateProductRequest, IProduct>
     UpdateProductRequest request,
     CancellationToken cancellationToken)
   {
-    var product = Product.Create(request);
-    await _repository.UpdateAsync(product, cancellationToken);
+    var product = await _repository.UpdateProductAsync(request, cancellationToken);
     await SendAsync(product);
   }
 }

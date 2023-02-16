@@ -1,4 +1,6 @@
 ﻿
+using Aine.Inventory.Core.ProductInventoryAggregate;
+
 namespace Aine.Inventory.Core.Interfaces;
 
 public interface IProduct
@@ -18,5 +20,6 @@ public interface IProduct
   int? ReorderPoint { get; }
   double? StandardCost { get; }
   double? ListPrice { get; }  
-  bool IsActive { get; }  
+  bool IsActive { get; }
+  IEnumerable<IInventory>? Inventory { get; }
 }

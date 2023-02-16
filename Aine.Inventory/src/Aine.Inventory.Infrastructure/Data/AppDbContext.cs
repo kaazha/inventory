@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Aine.Inventory.Core.CategoryAggregate;
 using Aine.Inventory.Core.ProductAggregate;
+using Aine.Inventory.Core.ProductInventoryAggregate;
 using Aine.Inventory.SharedKernel;
 using Aine.Inventory.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ public class AppDbContext : DbContext
 
   public DbSet<Product> Products => Set<Product>();
   public DbSet<ProductCategory> Categories => Set<ProductCategory>();
+  public DbSet<ProductInventory> ProductInventories => Set<ProductInventory>();
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {

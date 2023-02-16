@@ -16,7 +16,7 @@ public class ProductConfiguration : EntityConfigurationBase<Product>, IEntityTyp
     builder.Property(t => t.ProductNumber)
       .HasColumnName("product_number")
       .IsRequired()
-      .HasMaxLength(128);
+      .HasMaxLength(50);
 
     builder.HasIndex(p => p.ProductNumber).IsUnique();
     builder.HasKey(p => p.Id);

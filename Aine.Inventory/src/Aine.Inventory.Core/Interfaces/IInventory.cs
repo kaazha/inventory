@@ -2,6 +2,7 @@
 
 public interface IInventory
 {
+  int Id { get; }
   string? Bin { get; }
   int LocationId { get; }
   int ProductId { get; }

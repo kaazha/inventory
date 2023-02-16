@@ -34,14 +34,19 @@ public class Product : EntityBase<int>, IAggregateRoot, IProduct
   public DateTime? ModifiedDate { get; private set; }
   public ProductPhoto? ProductPhoto { get; private set; }
   public ICollection<ProductInventory> Inventory { get; private set; } = default!;
+  IEnumerable<IInventory>  IProduct.Inventory => Inventory;
 
   public static Product Create(IProduct productDto)
   {
     Validate(productDto);
-    var product = new Product(); // { Id = productDto.Id, IsActive = true };
+    var product = new Product(); 
     productDto.Adapt(product, MappingConfig);
     if (product.SubCategoryId == 0) product.SubCategoryId = null;
     if (product.Id == 0) product.IsActive = true;
+    if (product.ModelId == 0) product.ModelId = null;
+    product.Inventory = new List<ProductInventory>();
+    productDto.Inventory?.ForEachItem(inv => product.Inventory.Add(ProductInventory.Create(inv, product.Id)));
+
     return product;
   }
 
@@ -61,7 +66,7 @@ public class Product : EntityBase<int>, IAggregateRoot, IProduct
   private static TypeAdapterConfig MappingConfig => _mappingConfig ??=
     TypeAdapterConfig<IProduct, Product>
       .NewConfig()
-      //.Ignore(dest => dest.Id, dest => dest.IsActive)
+      .Ignore(p => p.Inventory)      
       .Config;
 }
 

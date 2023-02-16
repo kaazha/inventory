@@ -1,4 +1,5 @@
 ﻿using Aine.Inventory.Core.Interfaces;
+using Aine.Inventory.Core.ProductInventoryAggregate;
 
 namespace Aine.Inventory.Api.Endpoints.ProductEndpoints;
 
@@ -18,7 +19,24 @@ public class CreateProductRequest : IProduct
   public int? ReorderPoint { get; set; }
   public double? StandardCost { get; set; }
   public double? ListPrice { get; set; }
+  public List<InventoryModel>? Inventory { get; set;}
+  IEnumerable<IInventory>? IProduct.Inventory => this.Inventory;
 
   bool IProduct.IsActive => true;
   int IProduct.Id => 0;
+}
+
+public class InventoryModel : IInventory
+{
+  public int Id { get; }
+
+  public string? Bin {get;set;}
+
+  public int LocationId { get; set; }
+
+  public int ProductId { get; set; }
+
+  public int Quantity { get; set; }
+
+  public string? Shelf { get; set; }
 }
