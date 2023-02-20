@@ -6,7 +6,7 @@ using FastEndpoints;
 
 namespace Aine.Inventory.Api.Endpoints.ProductPriceEndpoints;
 
-public class List : Endpoint<ListProductPricesRequest, IEnumerable<IProductPrice>>
+public class List : EndpointWithoutRequest<IEnumerable<IProductPrice>> // ListProductPricesRequest
 {
   private readonly IReadRepository<ProductPrice> _repository;
 
@@ -17,15 +17,16 @@ public class List : Endpoint<ListProductPricesRequest, IEnumerable<IProductPrice
 
   public override void Configure()
   {
-    Get("/products/{productId}/prices");
+    Get("/prices", "/prices/{productId}");
     AllowAnonymous();
   }
 
   public override async Task<IEnumerable<IProductPrice>> ExecuteAsync(
-   ListProductPricesRequest request,
+   //ListProductPricesRequest request,
    CancellationToken cancellationToken)
   {
-    var specification = new ProductPriceSpecification(request.ProductId);
+    var productId = Query<int>("productId");
+    var specification = new ProductPriceSpecification(productId);
     var prices = await _repository.ListAsync(specification, cancellationToken);
     return prices;
   }

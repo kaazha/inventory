@@ -23,7 +23,7 @@ public class UpdateProductRequest : IProduct
   public double? ListPrice { get; set; }
   public bool IsActive { get; set; }
   public ICollection<InventoryModel>? Inventory { get; set; }
-  public List<ProductPrice>? Prices { get; set; }
+  //public List<ProductPrice>? Prices { get; set; }
   IEnumerable<IInventory>? IProduct.Inventory => this.Inventory;
-  IEnumerable<IProductPrice>? IProduct.Prices => this.Prices;
+  IEnumerable<IProductPrice>? IProduct.Prices => null;
 }

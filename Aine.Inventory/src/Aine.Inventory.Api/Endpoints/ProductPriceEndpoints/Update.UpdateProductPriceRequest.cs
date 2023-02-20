@@ -2,7 +2,7 @@
 
 namespace Aine.Inventory.Api.Endpoints.ProductPriceEndpoints;
 
-public class CreateProductPriceRequest : IPriceChange
+public class UpdateProductPriceRequest : IProductPrice
 {
   public int ProductId {get;set;}
 
@@ -15,4 +15,8 @@ public class CreateProductPriceRequest : IPriceChange
   public string? Notes { get; set; }
 
   public string? ChangedBy { get; set; }
+
+  public int Id { get; set; }
+
+  double? IProductPrice.PriceChange => null;
 }

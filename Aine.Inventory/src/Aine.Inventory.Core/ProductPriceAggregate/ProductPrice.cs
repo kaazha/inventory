@@ -19,11 +19,11 @@ public class ProductPrice : EntityBase<int>, IAggregateRoot, IProductPrice
   public double? PriceChange { get; private set; }
   public string? Notes { get; private set; }
 
-  public void SetEndDate()
+  public void SetEndDate(DateTime? endDate)
   {
-    if (EndDate.HasValue)
-      throw new InvalidOperationException("Unable to update Price End Date!");
-    EndDate = DateTime.UtcNow;
+    if (endDate.HasValue && endDate < EffectiveDate)
+      throw new ArgumentException($"Price effective date must be before it's end date! (Effective={EffectiveDate}, end={endDate})");
+    EndDate = endDate;
   }
 
   public static ProductPrice Create(
@@ -39,6 +39,8 @@ public class ProductPrice : EntityBase<int>, IAggregateRoot, IProductPrice
   {
     GuardModel.Against.Negative(productId, "Invalid product");
     GuardModel.Against.Negative(listPrice, $"Invalid list price ({listPrice})");
+    if (endDate.HasValue && endDate < effectiveDate)
+      throw new ArgumentException($"Price effective date must be before it's end date! (Effective={effectiveDate}, end={endDate})");
 
     return new ProductPrice
     {
@@ -53,19 +55,4 @@ public class ProductPrice : EntityBase<int>, IAggregateRoot, IProductPrice
       Notes = notes
     };
   }
-
-  //internal static ProductPrice Create(IProductPrice priceInfo, int productId)
-  //{
-  //  Guard.Against.Null(priceInfo, nameof(priceInfo));
-  //  return Create(
-  //    priceInfo.Id,
-  //    productId,
-  //    priceInfo.EffectiveDate,
-  //    priceInfo.EndDate,
-  //    priceInfo.ListPrice,
-  //    priceInfo.PriceChange,
-  //    priceInfo.ChangedBy,
-
-  //    );
-  //}
 }

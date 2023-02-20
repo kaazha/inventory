@@ -73,7 +73,8 @@ public class Product : EntityBase<int>, IAggregateRoot, IProduct
   private static TypeAdapterConfig MappingConfig => _mappingConfig ??=
     TypeAdapterConfig<IProduct, Product>
       .NewConfig()
-      .Ignore(p => p.Inventory)      
+      .Ignore(p => p.Inventory)
+      .Ignore(p => p.Prices)
       .Config;
 }
 

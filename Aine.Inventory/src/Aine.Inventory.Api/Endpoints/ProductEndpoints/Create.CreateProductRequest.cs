@@ -21,9 +21,9 @@ public class CreateProductRequest : IProduct
   public double? StandardCost { get; set; }
   public double? ListPrice { get; set; }
   public List<InventoryModel>? Inventory { get; set;}
-  public List<ProductPrice>? Prices { get; set; }
+  //public List<ProductPrice>? Prices { get; set; }
   IEnumerable<IInventory>? IProduct.Inventory => this.Inventory;
-  IEnumerable<IProductPrice>? IProduct.Prices => this.Prices;
+  IEnumerable<IProductPrice>? IProduct.Prices => null;
 
   bool IProduct.IsActive => true;
   int IProduct.Id => 0;

@@ -2,14 +2,9 @@
 using Aine.Inventory.Core.ProductAggregate;
 using Aine.Inventory.SharedKernel.Interfaces;
 using FastEndpoints;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace Aine.Inventory.Api.Endpoints.ProductEndpoints;
 
-[FastEndpoints.HttpPut("/products")]
-[AllowAnonymous]
 public class Update : Endpoint<UpdateProductRequest, IProduct>
 {
   private readonly IProductRepository _repository;
@@ -19,12 +14,12 @@ public class Update : Endpoint<UpdateProductRequest, IProduct>
     _repository = repository;
   }
 
-  [SwaggerOperation(
-    Summary = "Updates a Product",
-    Description = "Updates a Product",
-    OperationId = "Product.Update",
-    Tags = new[] { "ProductEndpoints" })
-  ]
+  public override void Configure()
+  {
+    Put("/products");
+    AllowAnonymous();
+  }
+
   public override async Task HandleAsync(
     UpdateProductRequest request,
     CancellationToken cancellationToken)

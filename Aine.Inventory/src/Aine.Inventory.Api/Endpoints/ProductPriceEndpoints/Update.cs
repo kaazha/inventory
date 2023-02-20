@@ -7,23 +7,23 @@ using FastEndpoints;
 
 namespace Aine.Inventory.Api.Endpoints.ProductPriceEndpoints;
 
-public class Create : Endpoint<CreateProductPriceRequest, IProductPrice>
+public class Update : Endpoint<UpdateProductPriceRequest, IProductPrice>
 {
   private readonly IPriceService _service;
 
-  public Create(IPriceService service)
+  public Update(IPriceService service)
   {
     _service = service;
   }
 
   public override void Configure()
   {
-    Post("/products/{ProductId}/prices");
+    Put("/products/{ProductId}/prices");
     AllowAnonymous();
   }
 
   public override async Task HandleAsync(
-     CreateProductPriceRequest request,
+     UpdateProductPriceRequest request,
      CancellationToken cancellationToken)
   {
     if (request.ProductId <= 0)
@@ -33,10 +33,10 @@ public class Create : Endpoint<CreateProductPriceRequest, IProductPrice>
     }
 
     request.ChangedBy = User.Identity?.Name;
-    var result = await _service.CreatePriceAsync(request, cancellationToken);
+    var result = await _service.UpdatePriceAsync(request, cancellationToken);
     if (result.IsSuccess)
     {
-      await SendAsync(result.Value, StatusCodes.Status201Created);
+      await SendAsync(result.Value, StatusCodes.Status200OK);
       return;
     }
 

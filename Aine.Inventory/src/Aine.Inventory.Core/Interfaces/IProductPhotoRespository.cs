@@ -5,4 +5,3 @@ public interface IProductPhotoRepository
 {
   Task<int> UpdateProductPhotoAsync(int productId, string productPhotoFileName);
 }
-

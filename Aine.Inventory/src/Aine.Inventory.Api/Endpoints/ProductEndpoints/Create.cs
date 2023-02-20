@@ -2,14 +2,9 @@
 using Aine.Inventory.Core.ProductAggregate;
 using Aine.Inventory.SharedKernel.Interfaces;
 using FastEndpoints;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace Aine.Inventory.Api.Endpoints.ProductEndpoints;
 
-[FastEndpoints.HttpPost("/products")]
-[AllowAnonymous]
 public class Create : Endpoint<CreateProductRequest, IProduct>
 {
   private readonly IProductRepository _repository;
@@ -19,12 +14,12 @@ public class Create : Endpoint<CreateProductRequest, IProduct>
     _repository = repository;
   }
 
-  [SwaggerOperation(
-    Summary = "Creates a new Product",
-    Description = "Creates a new Product",
-    OperationId = "Product.Create",
-    Tags = new[] { "ProductEndpoints" })
-  ]
+  public override void Configure()
+  {
+    Post("/products");
+    AllowAnonymous();
+  }
+
   public override async Task HandleAsync(
     CreateProductRequest request,
     CancellationToken cancellationToken)

@@ -88,6 +88,7 @@ var builder = WebApplication.CreateBuilder(args);
   {
     containerBuilder.RegisterAllTypesFromAssembly(typeof(SharedKernelMarker).Assembly, builder.Environment.EnvironmentName);
     containerBuilder.RegisterAllTypesFromAssembly(typeof(InfrastructureMarker).Assembly, builder.Environment.EnvironmentName);
+    containerBuilder.RegisterAllTypesFromAssembly(typeof(CoreMarker).Assembly, builder.Environment.EnvironmentName);
     //containerBuilder.RegisterModule(new DefaultCoreModule());
     //containerBuilder.RegisterModule(new DefaultInfrastructureModule(builder.Environment.EnvironmentName == "Development"));
   });
