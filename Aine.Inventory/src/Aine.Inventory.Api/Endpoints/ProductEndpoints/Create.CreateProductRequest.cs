@@ -1,5 +1,6 @@
 ﻿using Aine.Inventory.Core.Interfaces;
 using Aine.Inventory.Core.ProductInventoryAggregate;
+using Aine.Inventory.Core.ProductPriceAggregate;
 
 namespace Aine.Inventory.Api.Endpoints.ProductEndpoints;
 
@@ -20,7 +21,9 @@ public class CreateProductRequest : IProduct
   public double? StandardCost { get; set; }
   public double? ListPrice { get; set; }
   public List<InventoryModel>? Inventory { get; set;}
+  public List<ProductPrice>? Prices { get; set; }
   IEnumerable<IInventory>? IProduct.Inventory => this.Inventory;
+  IEnumerable<IProductPrice>? IProduct.Prices => this.Prices;
 
   bool IProduct.IsActive => true;
   int IProduct.Id => 0;

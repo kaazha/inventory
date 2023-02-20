@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Net.NetworkInformation;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using Aine.Inventory.Api;
 using Aine.Inventory.Infrastructure;
@@ -11,6 +12,7 @@ using FastEndpoints;
 using FastEndpoints.ApiExplorer;
 using FastEndpoints.Security;
 using FastEndpoints.Swagger.Swashbuckle;
+using FastEndpoints.Swagger;
 using MediatR;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Http.Json;
@@ -63,7 +65,7 @@ var builder = WebApplication.CreateBuilder(args);
   //builder.Services.AddRazorPages();
   builder.Services.AddFastEndpoints();
   builder.Services.AddJWTBearerAuth(builder.Configuration["Jwt:Key"]); //, tokenValidation: v => builder.GetTokenValidationParameters(v)); // JWT integration with FastEndpoints
-  // FastEndpoints.Swagger.Extensions.AddSwaggerDoc(builder.Services); 
+  //builder.Services.AddSwaggerDoc("", o=> o. tagIndex: 2);
   builder.Services.AddFastEndpointsApiExplorer();
   builder.Services.AddSwaggerGen(options =>
   {
@@ -110,7 +112,8 @@ var app = builder.Build();
 
   app.UseExceptionHandler(a => a.Run(ErrorHandler.HandleException));
   app.UseHsts();
-    
+  app.UseStaticFiles();
+
   //if (app.Environment.IsDevelopment())
   //{
   //  app.UseDeveloperExceptionPage();

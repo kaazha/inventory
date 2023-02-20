@@ -42,4 +42,10 @@
     <ProjectReference Include="..\Aine.Inventory.Infrastructure\Aine.Inventory.Infrastructure.csproj" />
   </ItemGroup>
   
+  <ItemGroup>
+    <None Remove="Endpoints\ProductPriceEndpoints\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Endpoints\ProductPriceEndpoints\" />
+  </ItemGroup>
 </Project>

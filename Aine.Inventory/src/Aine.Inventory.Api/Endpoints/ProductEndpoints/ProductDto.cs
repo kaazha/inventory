@@ -28,4 +28,5 @@ public class ProductDto : IProduct
   public string? SubCategoryName { get; set; }
   public ICollection<ProductInventory>? Inventory { get; set; }
   IEnumerable<IInventory>? IProduct.Inventory => Inventory;
+  IEnumerable<IProductPrice>? IProduct.Prices { get; }
 }

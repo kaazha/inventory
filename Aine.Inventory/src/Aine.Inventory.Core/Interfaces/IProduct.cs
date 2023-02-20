@@ -22,4 +22,5 @@ public interface IProduct
   double? ListPrice { get; }  
   bool IsActive { get; }
   IEnumerable<IInventory>? Inventory { get; }
+  IEnumerable<IProductPrice>?  Prices { get; }
 }

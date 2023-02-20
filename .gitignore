@@ -411,3 +411,5 @@ db/
 # log files
 log*.txt
 _logs/
+product_photo/
+product_photo/**

@@ -3,6 +3,7 @@ using Aine.Inventory.Core.Interfaces;
 using Aine.Inventory.Core.ProductInventoryAggregate;
 using Aine.Inventory.Core.ProductModelAggregate;
 using Aine.Inventory.Core.ProductPhotoAggregate;
+using Aine.Inventory.Core.ProductPriceAggregate;
 using Aine.Inventory.SharedKernel;
 using Aine.Inventory.SharedKernel.Guard;
 using Aine.Inventory.SharedKernel.Interfaces;
@@ -34,7 +35,9 @@ public class Product : EntityBase<int>, IAggregateRoot, IProduct
   public DateTime? ModifiedDate { get; private set; }
   public ProductPhoto? ProductPhoto { get; private set; }
   public ICollection<ProductInventory> Inventory { get; private set; } = default!;
+  public ICollection<ProductPrice> Prices { get; private set; } = default!;
   IEnumerable<IInventory>  IProduct.Inventory => Inventory;
+  IEnumerable<IProductPrice> IProduct.Prices => Prices;
 
   public static Product Create(IProduct productDto)
   {
@@ -44,8 +47,12 @@ public class Product : EntityBase<int>, IAggregateRoot, IProduct
     if (product.SubCategoryId == 0) product.SubCategoryId = null;
     if (product.Id == 0) product.IsActive = true;
     if (product.ModelId == 0) product.ModelId = null;
+
     product.Inventory = new List<ProductInventory>();
     productDto.Inventory?.ForEachItem(inv => product.Inventory.Add(ProductInventory.Create(inv, product.Id)));
+
+    //product.Prices = new List<ProductPrice>();
+    //productDto.Prices?.ForEachItem(priceInfo => product.Prices.Add(ProductPrice.Create(priceInfo, product.Id)));
 
     return product;
   }

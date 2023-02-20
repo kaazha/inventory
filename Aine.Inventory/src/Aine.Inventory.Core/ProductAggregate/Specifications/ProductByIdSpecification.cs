@@ -7,6 +7,8 @@ public class ProductByIdSpecification : ProductSpecification
   {
     UpdateQuery(p => p.Id == productId);
     Query.Include(p => p.Inventory)
-          .ThenInclude(p => p.Location);
+          .ThenInclude(p => p.Location)
+          //.Include(p => p.Prices);
+          ;
   }
 }

@@ -62,6 +62,20 @@ CREATE TABLE "product_inventory" (
 );
 
 
+CREATE TABLE "product_price" (
+    "id" INTEGER NOT NULL CONSTRAINT "PK_product_price" PRIMARY KEY AUTOINCREMENT,
+    "product_id" INTEGER NOT NULL,
+    "effective_date" TEXT NOT NULL,
+    "end_date" TEXT NULL,
+    "date_changed" TEXT NULL,
+    "changed_by" TEXT NULL,
+    "list_price" REAL NOT NULL,
+    "price_change" REAL NULL,
+    "notes" TEXT NULL,
+    CONSTRAINT "FK_product_price_product" FOREIGN KEY ("product_id") REFERENCES "product" ("id") ON DELETE CASCADE
+);
+
+
 CREATE TABLE "product_photo" (
     "id" INTEGER NOT NULL CONSTRAINT "PK_product_photo" PRIMARY KEY AUTOINCREMENT,
     "product_id" INTEGER NOT NULL,    
@@ -102,5 +116,7 @@ CREATE INDEX "IX_product_subcategory_category_id" ON "product_subcategory" ("cat
 
 
 CREATE UNIQUE INDEX "IX_product_subcategory_name" ON "product_subcategory" ("name");
+
+CREATE UNIQUE INDEX "IX_product_price_unique" ON "product_price" ("product_id", "effective_date", "end_date");
 
 

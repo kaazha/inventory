@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Aine.Inventory.Infrastructure.Data.Config;
 
-public class LocaProductInventoryConfiguration : EntityConfigurationBase<ProductInventory>, IEntityTypeConfiguration<ProductInventory>
+public class ProductInventoryConfiguration : EntityConfigurationBase<ProductInventory>, IEntityTypeConfiguration<ProductInventory>
 {
   public void Configure(EntityTypeBuilder<ProductInventory> builder)
   {
