@@ -23,6 +23,6 @@ public static class MapperExtensions
       .Map(d => d.ModelName, s => s.Model!.Name, s => s.Model != null)
       .Map(d => d.CategoryName, s => s.SubCategory!.Category!.Name, s => s.SubCategory != null && s.SubCategory.Category != null)
       .Map(d => d.CategoryId, s => s.SubCategory!.CategoryId, s => s.SubCategory != null)
-      .Map(d => d.Description, s => s.Model!.Description, s => string.IsNullOrEmpty(s.Description) && s.Model != null)      
+      .Map(d => d.Description, s => s.Description ?? (s.Model != null ? s.Model.Description : null))      
       .Config;
 }

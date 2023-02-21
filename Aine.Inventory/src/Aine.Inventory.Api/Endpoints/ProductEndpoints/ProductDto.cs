@@ -26,6 +26,9 @@ public class ProductDto : IProduct
   public string? CategoryName { get; set; }
   public int? CategoryId { get; set; }
   public string? SubCategoryName { get; set; }
+  public DateTime? ModifiedDate { get; private set; }
+  public string? CreatedBy { get; set; }
+  public string? ModifiedBy { get; set; }
   public ICollection<ProductInventory>? Inventory { get; set; }
   IEnumerable<IInventory>? IProduct.Inventory => Inventory;
   IEnumerable<IProductPrice>? IProduct.Prices { get; }

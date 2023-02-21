@@ -17,14 +17,14 @@ public class Create : Endpoint<CreateProductRequest, IProduct>
   public override void Configure()
   {
     Post("/products");
-    AllowAnonymous();
+    //AllowAnonymous();
   }
 
   public override async Task HandleAsync(
     CreateProductRequest request,
     CancellationToken cancellationToken)
   {
-    var createdItem = await _repository.CreateProductAsync(request, cancellationToken);
+    var createdItem = await _repository.CreateProductAsync(request, User.AsUser(),  cancellationToken);
     await SendAsync(createdItem);
   }
 }

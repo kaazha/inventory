@@ -64,7 +64,7 @@ var builder = WebApplication.CreateBuilder(args);
   //builder.Services.AddControllersWithViews().AddNewtonsoftJson();
   //builder.Services.AddRazorPages();
   builder.Services.AddFastEndpoints();
-  builder.Services.AddJWTBearerAuth(builder.Configuration["Jwt:Key"]); //, tokenValidation: v => builder.GetTokenValidationParameters(v)); // JWT integration with FastEndpoints
+  builder.Services.AddJWTBearerAuth(builder.Configuration["Jwt:Key"]);  // FastEndpoints
   //builder.Services.AddSwaggerDoc("", o=> o. tagIndex: 2);
   builder.Services.AddFastEndpointsApiExplorer();
   builder.Services.AddSwaggerGen(options =>

@@ -33,6 +33,8 @@ public class Product : EntityBase<int>, IAggregateRoot, IProduct
   public double? ListPrice { get; private set; }
   public bool IsActive { get; private set; } = true;
   public DateTime? ModifiedDate { get; private set; }
+  public string? CreatedBy { get;  set; }
+  public string? ModifiedBy { get;  set; }
   public ProductPhoto? ProductPhoto { get; private set; }
   public ICollection<ProductInventory> Inventory { get; private set; } = default!;
   public ICollection<ProductPrice> Prices { get; private set; } = default!;
@@ -48,11 +50,9 @@ public class Product : EntityBase<int>, IAggregateRoot, IProduct
     if (product.Id == 0) product.IsActive = true;
     if (product.ModelId == 0) product.ModelId = null;
 
+    product.ModifiedDate = DateTime.UtcNow;
     product.Inventory = new List<ProductInventory>();
     productDto.Inventory?.ForEachItem(inv => product.Inventory.Add(ProductInventory.Create(inv, product.Id)));
-
-    //product.Prices = new List<ProductPrice>();
-    //productDto.Prices?.ForEachItem(priceInfo => product.Prices.Add(ProductPrice.Create(priceInfo, product.Id)));
 
     return product;
   }

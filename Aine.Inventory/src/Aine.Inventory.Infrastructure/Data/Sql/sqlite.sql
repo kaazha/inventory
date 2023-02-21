@@ -44,6 +44,8 @@ CREATE TABLE "product" (
     "list_price" REAL NULL,
     "is_active" INTEGER NOT NULL,
     "modified_date" TEXT NULL,
+    "created_by" TEXT NULL,
+    "modified_by" TEXT NULL,
     CONSTRAINT "FK_product_product_model_model_id" FOREIGN KEY ("model_id") REFERENCES "product_model" ("id"),
     CONSTRAINT "FK_product_product_subcategory_sub_category_id" FOREIGN KEY ("sub_category_id") REFERENCES "product_subcategory" ("id")
 );

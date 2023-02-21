@@ -11,19 +11,19 @@ public class User : IUser
   public ICollection<string>? Roles { get; private set; }
   public ICollection<string>? Permissions { get; private set; }
 
-  public static User Create(
+  public static User Create (
     int userId, 
     string userName, 
     string? corpName = default, 
     ICollection<string>? roles = default, 
     ICollection<string>? permissions = default)
   {
-    return new User 
+    return new User
     {
-      UserId = userId, 
-      UserName = userName, 
-      CorpName = corpName, 
-      Roles = roles, 
+      UserId = userId,
+      UserName = userName,
+      CorpName = corpName,
+      Roles = roles,
       Permissions = permissions
     };
   }

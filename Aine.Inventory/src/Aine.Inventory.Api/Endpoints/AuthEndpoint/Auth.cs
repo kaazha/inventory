@@ -47,7 +47,8 @@ public class Auth : Endpoint<AuthRequest, AuthResponse>
     var jwtToken = JWTBearer.CreateToken(
                 signingKey: tokenSigningKey,
                 expireAt: DateTime.UtcNow.AddDays(1),
-                claims: new[] { 
+                claims: new[] {
+                  ("Name", user.UserName),
                   ("UserName", user.UserName),
                   ("UserId", user.UserId.ToString()),
                   ("CorpName", user.CorpName ?? "Default") 

@@ -8,7 +8,6 @@ namespace Aine.Inventory.Api;
 
 public static class AppBuilderExtensions
 {
-   /*
   public static void AddJwtAuthentication(this WebApplicationBuilder builder)
   {
     builder.Services.AddAuthentication(options =>
@@ -36,7 +35,6 @@ public static class AppBuilderExtensions
       ValidateIssuerSigningKey = true
     };
   }
-
  
   public static TokenValidationParameters GetTokenValidationParameters(this WebApplicationBuilder builder, TokenValidationParameters p)
   {
@@ -49,7 +47,6 @@ public static class AppBuilderExtensions
     p.ValidateIssuerSigningKey = true;
     return p;
   }
-  */
 
   public static void AddApiSecurityDefinition(this SwaggerGenOptions option)
   {
