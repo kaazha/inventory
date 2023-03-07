@@ -17,12 +17,6 @@ public class CreateSubCategory : Endpoint<CreateSubCategoryRequest, ISubCategory
     _repository = repository;
   }
 
-  [SwaggerOperation(
-    Summary = "Creates a new Product SubCategory",
-    Description = "Creates a new Product SubCategory",
-    OperationId = "Category.CreateSubCategory",
-    Tags = new[] { "CategoryEndpoints" })
-  ]
   public override async Task HandleAsync(
     CreateSubCategoryRequest request,
     CancellationToken cancellationToken)

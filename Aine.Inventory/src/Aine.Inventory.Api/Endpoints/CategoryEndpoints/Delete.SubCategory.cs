@@ -18,19 +18,16 @@ public class DeleteSubCategory : EndpointWithoutRequest
 
   public override void Configure()
   {
-    Delete("/categories/{categoryId}/{subcategories}/{subcategoryId}",
-      "/{subcategories}/{subcategoryId}"
-      );
+    Delete("/subcategories/{subcategoryId}");
     AllowAnonymous();
     DontCatchExceptions();
+    Summary(s =>
+    {
+      s.Summary = "Deletes a Product Sub-Category";
+      s.Params["subcategoryId"] = "SubCategory Id";
+    });
   }
 
-  [SwaggerOperation(
-    Summary = "Deletes a Product SubCategory",
-    Description = "Deletes a specified Product SubCategory",
-    OperationId = "Category.Delete",
-    Tags = new[] { "CategoryEndpoints" })
-  ]
   public override async Task HandleAsync(
     CancellationToken cancellationToken)
   {

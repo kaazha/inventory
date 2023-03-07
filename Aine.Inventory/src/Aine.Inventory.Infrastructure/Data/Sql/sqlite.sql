@@ -50,6 +50,23 @@ CREATE TABLE "product" (
     CONSTRAINT "FK_product_product_subcategory_sub_category_id" FOREIGN KEY ("sub_category_id") REFERENCES "product_subcategory" ("id")
 );
 
+CREATE TABLE "product_transaction" (
+    "id" INTEGER NOT NULL CONSTRAINT "PK_product_transaction" PRIMARY KEY AUTOINCREMENT,
+    "product_id" INTEGER NOT NULL,
+    "transaction_date" TEXT NOT NULL,
+    "transaction_type" TEXT NOT NULL,
+    "reference_number" TEXT NULL,
+    "quantity" INTEGER NOT NULL,
+    "total_cost" REAL NULL,
+    "notes" TEXT NULL,
+    "created_by" TEXT NULL,
+    "date_created" TEXT NOT NULL,
+    "modified_by" TEXT NULL,
+    "modified_date" TEXT NULL,
+    CONSTRAINT "FK_product_transaction_product_product_id" FOREIGN KEY ("product_id") REFERENCES "product" ("id")
+    --CONSTRAINT "CK_product_transaction_trans_type" check "transaction_type" in ('Sales', 'Purchase', 'Inflow', 'Outflow')
+);
+
 
 CREATE TABLE "product_inventory" (
     "id" INTEGER NOT NULL CONSTRAINT "PK_product_inventory" PRIMARY KEY AUTOINCREMENT,

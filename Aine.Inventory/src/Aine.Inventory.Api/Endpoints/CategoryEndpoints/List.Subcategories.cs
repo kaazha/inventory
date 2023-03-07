@@ -18,6 +18,10 @@ public class ListSubCategories : EndpointWithoutRequest<ICollection<ProductSubCa
   {
     Get("/SubCategories");
     AllowAnonymous();
+    Summary(s =>
+    {
+      s.Summary = "Returns All Product Sub-Categories";
+    });
   }
 
   public override async Task<ICollection<ProductSubCategory>> ExecuteAsync(CancellationToken cancellationToken)

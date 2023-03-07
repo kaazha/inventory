@@ -18,12 +18,6 @@ public class Create : Endpoint<CreateLocationRequest, Location>
     _repository = repository;
   }
 
-  [SwaggerOperation(
-    Summary = "Creates a new Location",
-    Description = "Creates a new Location",
-    OperationId = "Location.Create",
-    Tags = new[] { "LocationEndpoints" })
-  ]
   public override async Task HandleAsync(
     CreateLocationRequest request,
     CancellationToken cancellationToken)

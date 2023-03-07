@@ -17,7 +17,7 @@ public class Create : Endpoint<CreateProductRequest, IProduct>
   public override void Configure()
   {
     Post("/products");
-    //AllowAnonymous();
+    AllowAnonymous();
   }
 
   public override async Task HandleAsync(

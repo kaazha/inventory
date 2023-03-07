@@ -6,7 +6,7 @@ namespace Aine.Inventory.Core.ProductPriceAggregate;
 
 public class ProductPriceSpecification : Specification<ProductPrice>
 {
-  public ProductPriceSpecification(int? productId, bool currentOnly = false)
+  public ProductPriceSpecification(int? productId, bool active = false)
   {
     Expression<Func<ProductPrice, bool>> predicate = p => true;
     if (productId > 0) predicate = predicate.AndAlso(p => p.ProductId == productId);
@@ -15,6 +15,6 @@ public class ProductPriceSpecification : Specification<ProductPrice>
     Query
       .Where(predicate)
       .OrderByDescending(p => p.EffectiveDate);
-    if (currentOnly) Query.Take(1);
+    if (active) Query.Take(1);
   }
 }

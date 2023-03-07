@@ -17,12 +17,6 @@ public class Create : Endpoint<CreateModelRequest, ProductModel>
     _repository = repository;
   }
 
-  [SwaggerOperation(
-    Summary = "Creates a new Product Model",
-    Description = "Creates a new Product Model",
-    OperationId = "Model.Create",
-    Tags = new[] { "ModelEndpoints" })
-  ]
   public override async Task HandleAsync(
     CreateModelRequest request,
     CancellationToken cancellationToken)

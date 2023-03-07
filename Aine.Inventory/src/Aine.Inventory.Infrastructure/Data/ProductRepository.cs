@@ -37,5 +37,29 @@ public class ProductRepository : EfRepository<Product>, IProductRepository
     await transaction.CommitAsync();
     return product;
   }
+
+  public async Task<ICollection<ProductInfo>> GetProducts(CancellationToken cancellationToken)
+  {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+    return await _context
+        .Set<Product>()
+        .OrderBy(p => p.SubCategory.CategoryId)
+        .ThenBy(p => p.ProductNumber)
+        .Select(p => new ProductInfo(p.Id, p.ProductNumber, p.Name, p.SubCategory.Category.Name))
+        .ToListAsync(cancellationToken);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+  }
+
+  public async Task<int> UpdateProductListPrice(int productId, double listPrice, object? user)
+  {
+    var updatedBy = user is IUser usr ? usr.UserName : (user?.ToString() ?? "unknown user");
+    return await _context.Set<Product>()
+        .Where(p => p.Id == productId)
+        .ExecuteUpdateAsync(p =>
+          p.SetProperty(x => x.ListPrice, listPrice)
+           .SetProperty(x => x.ModifiedBy, updatedBy)
+           .SetProperty(x => x.ModifiedDate, DateTime.Now)
+          );
+  }
 }
 

@@ -23,12 +23,6 @@ public class DeleteModel : EndpointWithoutRequest
     DontCatchExceptions();
   }
 
-  [SwaggerOperation(
-    Summary = "Deletes a Product Model",
-    Description = "Deletes a specified Product Model",
-    OperationId = "Model.Delete",
-    Tags = new[] { "ModelEndpoints" })
-  ]
   public override async Task HandleAsync(
     CancellationToken cancellationToken)
   {

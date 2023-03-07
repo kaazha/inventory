@@ -21,8 +21,14 @@
   <ItemGroup>
     <None Remove="Services\" />
     <None Remove="ProductAggregate\" />
+    <None Remove="TransactionAggregate\" />
+    <None Remove="ProductPriceAggregate\DomainEvents\" />
+    <None Remove="DomainEventHandlers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
+    <Folder Include="TransactionAggregate\" />
+    <Folder Include="ProductPriceAggregate\DomainEvents\" />
+    <Folder Include="DomainEventHandlers\" />
   </ItemGroup>
 </Project>

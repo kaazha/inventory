@@ -2,6 +2,12 @@
 
 public class GuardModel
 {
+  public static void IsOneOf(string value, IEnumerable<string> values, string message)
+  {
+    if (!values.Contains(value))
+      throw new ModelValidationException(message);
+  }
+
   public static class Against
   {
     public static string NullOrEmpty(string? value, string message)

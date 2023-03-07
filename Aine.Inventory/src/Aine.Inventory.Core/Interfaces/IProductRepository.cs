@@ -12,4 +12,8 @@ public interface IProductRepository : IRepositoryBase<Product>
 
   /// <summary> Updates a Product</summary>
   Task<Product> UpdateProductAsync(IProduct product, IUser user, CancellationToken cancellationToken);
+
+  Task<ICollection<ProductInfo>> GetProducts(CancellationToken cancellationToken);
+
+  Task<int> UpdateProductListPrice(int productId, double listPrice, object? user);
 }

@@ -1,7 +1,9 @@
 ﻿using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Aine.Inventory.Api;
+using Aine.Inventory.Core.DomainEventHandlers;
 using Aine.Inventory.Infrastructure;
 using Aine.Inventory.Infrastructure.Data;
 using Aine.Inventory.SharedKernel;
@@ -11,7 +13,7 @@ using Autofac.Extensions.DependencyInjection;
 using FastEndpoints;
 using FastEndpoints.ApiExplorer;
 using FastEndpoints.Security;
-using FastEndpoints.Swagger.Swashbuckle;
+//using FastEndpoints.Swagger.Swashbuckle;
 using FastEndpoints.Swagger;
 using MediatR;
 using Microsoft.AspNetCore.Http.Features;
@@ -65,13 +67,17 @@ var builder = WebApplication.CreateBuilder(args);
   //builder.Services.AddRazorPages();
   builder.Services.AddFastEndpoints();
   builder.Services.AddJWTBearerAuth(builder.Configuration["Jwt:Key"]);  // FastEndpoints
-  //builder.Services.AddSwaggerDoc("", o=> o. tagIndex: 2);
+  builder.Services.AddSwaggerDoc(settings =>
+  {
+    settings.Title = DESCRIPTION;
+    settings.Version = "v1";
+  });
   builder.Services.AddFastEndpointsApiExplorer();
   builder.Services.AddSwaggerGen(options =>
   {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = DESCRIPTION, Version = "v1" });
     options.EnableAnnotations();
-    options.OperationFilter<FastEndpointsOperationFilter>();
+    //options.OperationFilter<FastEndpointsOperationFilter>();
     options.AddApiSecurityDefinition();
   });
 
@@ -86,11 +92,14 @@ var builder = WebApplication.CreateBuilder(args);
 
   builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
   {
+    // in assembly holding the Domain Events
+    containerBuilder.RegisterAssemblyTypes(typeof(PriceUpdatedDomainEventHandler)
+                                   .GetTypeInfo().Assembly)
+                                     .AsClosedTypesOf(typeof(INotificationHandler<>));
     containerBuilder.RegisterAllTypesFromAssembly(typeof(SharedKernelMarker).Assembly, builder.Environment.EnvironmentName);
     containerBuilder.RegisterAllTypesFromAssembly(typeof(InfrastructureMarker).Assembly, builder.Environment.EnvironmentName);
     containerBuilder.RegisterAllTypesFromAssembly(typeof(CoreMarker).Assembly, builder.Environment.EnvironmentName);
-    //containerBuilder.RegisterModule(new DefaultCoreModule());
-    //containerBuilder.RegisterModule(new DefaultInfrastructureModule(builder.Environment.EnvironmentName == "Development"));
+    containerBuilder.RegisterAllTypesFromAssembly(typeof(Program).Assembly, builder.Environment.EnvironmentName);
   });
 
   builder.Services.Configure<JsonOptions>(options =>
@@ -140,7 +149,7 @@ var app = builder.Build();
   app.UseCookiePolicy();
 
   // Enable middleware to serve generated Swagger as a JSON endpoint.
-  app.UseSwagger(); //SwaggerBuilderExtensions.UseSwagger(app);   //app.UseSwagger();
+  app.UseSwaggerGen(); //SwaggerBuilderExtensions.UseSwagger(app);   //app.UseSwagger();
 
   // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
   app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", DESCRIPTION));

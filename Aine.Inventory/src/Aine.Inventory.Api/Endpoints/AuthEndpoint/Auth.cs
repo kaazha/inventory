@@ -23,6 +23,11 @@ public class Auth : Endpoint<AuthRequest, AuthResponse>
     Verbs(Http.POST);
     Routes("/auth");
     AllowAnonymous();
+    Summary(s =>
+    { 
+      s.Summary = "Authenticates a User";
+      s.Response(200, "JWT Token");
+    });
   }
 
   public override async Task HandleAsync(AuthRequest request, CancellationToken ct)

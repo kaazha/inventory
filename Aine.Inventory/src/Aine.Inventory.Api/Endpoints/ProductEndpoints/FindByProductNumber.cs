@@ -35,7 +35,8 @@ public class FindByProductNumber : EndpointWithoutRequest<FindByProductNumberRes
     var result = new FindByProductNumberResponse
     {
       ProductNumber = productNumber!,
-      ProductId = product.Id.Value
+      ProductId = product.Id.Value,
+      ProductName = product.Name
     };
     await SendOkAsync(result);
   }
@@ -50,4 +51,5 @@ public class FindByProductNumberResponse
 {
   public string ProductNumber { get; set; } = default!;
   public int ProductId { get; set; }
+  public string? ProductName{ get; set; }
 }

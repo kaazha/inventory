@@ -15,6 +15,8 @@ public static class Extensions
         );
   }
 
+  public static string UserName(this ClaimsPrincipal principal) => principal.FindFirstValue("UserName");
+
   public static int AsInt(this string value, int @default = default)
   {
     if (string.IsNullOrEmpty(value)) return @default;

@@ -17,20 +17,12 @@ public class Create : Endpoint<CreateCategoryRequest, ProductCategory>
     _repository = repository;
   }
 
-  [SwaggerOperation(
-    Summary = "Creates a new Product Category",
-    Description = "Creates a new Product Category",
-    OperationId = "Category.Create",
-    Tags = new[] { "CategoryEndpoints" })
-  ]
   public override async Task HandleAsync(
     CreateCategoryRequest request,
     CancellationToken cancellationToken)
   {
     var newCategory = new ProductCategory(request);
     var createdItem = await _repository.AddAsync(newCategory, cancellationToken);
-    //var response = new CreateCategoryResponse(createdItem.Id, createdItem.Name);
-
     await SendAsync(createdItem, StatusCodes.Status201Created, cancellation: cancellationToken);
   }
 }

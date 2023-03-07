@@ -12,7 +12,7 @@ public abstract class EntityBase
   [System.Text.Json.Serialization.JsonIgnore]
   public IEnumerable<DomainEventBase> DomainEvents => _domainEvents.AsReadOnly();
 
-  protected void RegisterDomainEvent(DomainEventBase domainEvent) => _domainEvents.Add(domainEvent);
+  protected internal void RegisterDomainEvent(DomainEventBase domainEvent) => _domainEvents.Add(domainEvent);
   internal void ClearDomainEvents() => _domainEvents.Clear();
 }
 

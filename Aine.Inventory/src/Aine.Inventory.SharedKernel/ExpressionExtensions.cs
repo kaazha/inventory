@@ -4,7 +4,12 @@ using System.Linq.Expressions;
 namespace Aine.Inventory.SharedKernel;
 public static  class ExpressionExtensions
 {
-  public static Expression<Func<T, bool>> AndAlso<T>(this Expression<Func<T, bool>> left, Expression<Func<T, bool>> right)
+  public static Expression<Func<T, bool>> AndAlso<T>(this Expression<Func<T, bool>> left, Expression<Func<T, bool>> right, bool condition)
+  {
+    return condition ? AndAlso(left, right) : left;
+  }
+
+  public static Expression<Func<T, bool>> AndAlso<T>(this Expression<Func<T, bool>>? left, Expression<Func<T, bool>> right)
   {
     if (left == null) return right;
     if (right == null) return left;
