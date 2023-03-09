@@ -17,6 +17,7 @@ public class Search : Endpoint<TransactionSearchOptions, ICollection<Transaction
   public override void Configure()
   {
     Get("/transactions/search");
+    Post("/transactions/search");
     AllowAnonymous();
   }
 
