@@ -17,12 +17,6 @@ public class Update : Endpoint<UpdateCategoryRequest>
     _repository = repository;
   }
 
-  [SwaggerOperation(
-    Summary = "Updates a Product Category",
-    Description = "Updates a new Product Category",
-    OperationId = "Category.Update",
-    Tags = new[] { "CategoryEndpoints" })
-  ]
   public override async Task HandleAsync(
     UpdateCategoryRequest request,
     CancellationToken cancellationToken)

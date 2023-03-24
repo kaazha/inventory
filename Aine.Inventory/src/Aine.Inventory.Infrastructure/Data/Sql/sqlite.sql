@@ -104,6 +104,22 @@ CREATE TABLE "product_photo" (
 );
 
 
+CREATE TABLE "settings" (
+    "setting_name" TEXT NOT NULL CONSTRAINT "PK_settings" PRIMARY KEY,
+    "description" TEXT NULL,
+    "setting_value" TEXT NOT NULL
+);
+
+insert into settings(setting_name, setting_value)
+values
+    ('CompanyName', 'GraceCorp'),
+    ('CompanyLogo', 'companyLogo.png'),
+    ('BusinessType', 'Commerce'),
+    ('DateCreated', '2023-01-01'),
+    ('InventoryItemName', 'Inventory Item'),
+    ('MultipleLocations', 'true'),
+    ('TransactionTypes', '[{"name": "Sales", "type": "outflow", "affectsQuantities": true}, {"name": "Recieve Items", "type": "inflow", "affectsQuantities": true}, {"name": "Transfer", "type": "transfer", "affectsQuantities": true}]');
+
 CREATE UNIQUE INDEX "IX_location_name" ON "location" ("name");
 
 
@@ -138,4 +154,74 @@ CREATE UNIQUE INDEX "IX_product_subcategory_name" ON "product_subcategory" ("nam
 
 CREATE UNIQUE INDEX "IX_product_price_unique" ON "product_price" ("product_id", "effective_date", "end_date");
 
+
+/******************************************** SECURITY ********************************************************************/
+
+CREATE TABLE "auth_tokens" (
+    "user_id" TEXT NOT NULL CONSTRAINT "PK_auth_tokens" PRIMARY KEY,
+    "expiry_date" TEXT NOT NULL,
+    "token" TEXT NOT NULL
+);
+
+CREATE TABLE "roles" (
+    "id" INTEGER NOT NULL CONSTRAINT "PK_roles" PRIMARY KEY AUTOINCREMENT,
+    "role_name" TEXT NOT NULL,
+    "role_description" TEXT NULL
+);
+
+insert into roles(role_name, role_description) values
+  ('Admin', 'System Administrator'),
+  ('Manager', 'Manager'),
+  ('User', 'Standard User');
+
+
+CREATE TABLE "permissions" (
+    "id" INTEGER NOT NULL CONSTRAINT "PK_permissions" PRIMARY KEY AUTOINCREMENT,
+    "permission_title" TEXT NOT NULL,
+    "permission_description" TEXT NULL
+);
+
+insert into permissions(permission_title, permission_description) values
+  ('Manage Products', 'create and update products/stock'),
+  ('Manage Transactions', 'Enter transactions'),
+  ('Manage Product Price', 'Update product price history'),
+  ('Manage Inventory', 'Create and update product inventory/quantities'),
+  ('Manage Users', 'Create and assign permissions to users');
+
+CREATE TABLE "users" (
+    "user_id" INTEGER NOT NULL CONSTRAINT "PK_users" PRIMARY KEY AUTOINCREMENT,
+    "user_name" TEXT NOT NULL,
+    "full_name" TEXT NOT NULL,
+    "avatar" BLOB NULL,
+    "password" TEXT NOT NULL,
+    "date_created" TEXT NOT NULL,
+    "created_by" TEXT NULL,
+    "is_active" INTEGER NOT NULL,
+    "last_updated" TEXT NULL,
+    "last_updated_by" TEXT NULL,
+    "last_login" TEXT NULL
+);
+
+CREATE TABLE "user_permissions" (
+    "permission_id" INTEGER NOT NULL,
+    "user_id" INTEGER NOT NULL,
+    "permission_flag" INTEGER NOT NULL, /*0:deny, */
+    CONSTRAINT "PK_user_permissions" PRIMARY KEY ("user_id", "permission_id"),
+    CONSTRAINT "FK_user_permissions_permissions_permissions" FOREIGN KEY ("permission_id") REFERENCES "permissions" ("Id") ,
+    CONSTRAINT "FK_user_permissions_users_user_id" FOREIGN KEY ("user_id") REFERENCES "users" ("user_id") ON DELETE CASCADE
+);
+
+CREATE TABLE "user_roles" (
+    "role_id" INTEGER NOT NULL,
+    "user_id" INTEGER NOT NULL,
+    CONSTRAINT "PK_user_roles" PRIMARY KEY ("user_id", "role_id"),
+    CONSTRAINT "FK_user_roles_roles_roles" FOREIGN KEY ("role_id") REFERENCES "roles" ("Id") ,
+    CONSTRAINT "FK_user_roles_users_user_id" FOREIGN KEY ("user_id") REFERENCES "users" ("user_id") ON DELETE CASCADE
+);
+
+CREATE UNIQUE INDEX "IX_roles_role_name" ON "roles" ("role_name");
+CREATE UNIQUE INDEX "IX_permissions_permission_title" ON "permissions" ("permission_title");
+CREATE UNIQUE INDEX "IX_users_user_name" ON "users" ("user_name");
+
+/******************************************** SECURITY ********************************************************************/
 

@@ -3,28 +3,39 @@ using Aine.Inventory.SharedKernel.Interfaces;
 
 namespace Aine.Inventory.SharedKernel.Security;
 
-public class User : IUser
+public class User : EntityBase<int>
 {
-  public int UserId { get; private set; }
   public string UserName { get; private set; } = default!;
-  public string? CorpName { get; private set; }
-  public ICollection<string>? Roles { get; private set; }
-  public ICollection<string>? Permissions { get; private set; }
+  public string FullName { get; private set; } = default!;
+  public byte[]? Avatar { get; private set; }
+  public string Password { get; private set; } = default!;
+  public DateTime DateCreated { get; private set; }
+  public string? CreatedBy { get; private set; }
+  public bool IsActive { get; private set; }
+  public DateTime? LastUpdated { get; private set; }
+  public string? LastUpdatedBy { get; private set; }
+  public DateTime? LastLogIn { get; private set; }
+
+  public ICollection<UserRole>? UserRoles { get; private set; }
+  public ICollection<UserPermission>? Permissions { get; private set; }
 
   public static User Create (
     int userId, 
-    string userName, 
-    string? corpName = default, 
-    ICollection<string>? roles = default, 
-    ICollection<string>? permissions = default)
+    string userName,
+    string fullName,
+    string password,
+    byte[]? avatar,
+    string creator)
   {
     return new User
     {
-      UserId = userId,
+      Id = userId,
       UserName = userName,
-      CorpName = corpName,
-      Roles = roles,
-      Permissions = permissions
+      FullName = fullName,
+      DateCreated = DateTime.UtcNow,
+      Avatar = avatar, IsActive = true,
+      Password = password,
+      CreatedBy = creator
     };
   }
 }

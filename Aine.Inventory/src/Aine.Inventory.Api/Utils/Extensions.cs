@@ -9,7 +9,7 @@ public static class Extensions
 {
   public static IUser AsUser(this ClaimsPrincipal principal)
   {
-    return User.Create(
+    return AuthenticatedUser.Create(
         userId: principal.FindFirstValue("UserId").AsInt(),
         userName: principal.FindFirstValue("UserName")
         );

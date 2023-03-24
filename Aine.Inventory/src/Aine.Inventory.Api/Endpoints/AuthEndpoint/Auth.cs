@@ -58,8 +58,8 @@ public class Auth : Endpoint<AuthRequest, AuthResponse>
                   ("UserId", user.UserId.ToString()),
                   ("CorpName", user.CorpName ?? "Default") 
                 },
-                roles: user.Roles,
-                permissions: user.Permissions);
+                roles: user.Privileges?.Roles,
+                permissions: user.Privileges?.Permissions);
 
     return jwtToken;
   }

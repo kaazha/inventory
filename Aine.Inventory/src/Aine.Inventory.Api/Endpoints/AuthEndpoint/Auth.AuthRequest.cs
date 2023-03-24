@@ -1,4 +1,6 @@
-﻿namespace Aine.Inventory.Api.Endpoints.AuthEndpoint;
+﻿using Aine.Inventory.Core.Interfaces;
+
+namespace Aine.Inventory.Api.Endpoints.AuthEndpoint;
 
 public class AuthRequest
 {

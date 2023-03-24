@@ -25,6 +25,7 @@
     <None Remove="ProductPriceAggregate\DomainEvents\" />
     <None Remove="DomainEventHandlers\" />
     <None Remove="DTOs\" />
+    <None Remove="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -32,5 +33,6 @@
     <Folder Include="ProductPriceAggregate\DomainEvents\" />
     <Folder Include="DomainEventHandlers\" />
     <Folder Include="DTOs\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 </Project>

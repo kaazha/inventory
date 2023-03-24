@@ -11,6 +11,8 @@ internal class DefaultUserAuthenticator  : IUserAuthenticator
 {
   public Task<Result<IUser>> AuthenticateUserAsync(UserModel user)
   {
-    return Task.FromResult(Result<IUser>.Success(User.Create(0, user.UserName, user.CorpName)));
+    ///TODO: ....
+    var authenticatedUser = AuthenticatedUser.Create(0, user.UserName, user.UserName, user.CorpName);
+    return Task.FromResult(Result<IUser>.Success(authenticatedUser));
   }
 }
