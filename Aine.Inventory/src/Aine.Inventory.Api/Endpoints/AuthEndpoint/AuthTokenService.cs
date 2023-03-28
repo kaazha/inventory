@@ -20,7 +20,7 @@ public class AuthTokenService : RefreshTokenService<TokenRequest, TokenResponse>
       o.AccessTokenValidity = TimeSpan.FromHours(24);
       o.RefreshTokenValidity = TimeSpan.FromHours(24);
 
-      o.Endpoint("/auth/refresh-token", ep =>
+      o.Endpoint("/refresh-token", ep =>
       {
         ep.Summary(s => s.Summary = "this is the refresh token endpoint");
       });

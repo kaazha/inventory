@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "3yClQWbfcwQR1iTWr2qHFSxkWKUM4wjWm6VoI+16/LkRjyogUqMr0Gsh86DCV1yNesWnXcynlsFuvVLw3NPrdw==",
+  "success": false,
+  "projectFilePath": "/Users/kaz/Projects/Aine.Inventory/Aine.Inventory/tests/unittests/unittests.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1008",
+      "level": "Error",
+      "message": "Projects that use central package version management should not define the version on the PackageReference items but on the PackageVersion items: Microsoft.NET.Test.Sdk;coverlet.collector;xunit;xunit.runner.visualstudio."
+    }
+  ]
+}

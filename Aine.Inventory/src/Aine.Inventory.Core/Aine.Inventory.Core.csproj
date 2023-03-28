@@ -18,21 +18,4 @@
     <ProjectReference Include="..\Aine.Inventory.SharedKernel\Aine.Inventory.SharedKernel.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Services\" />
-    <None Remove="ProductAggregate\" />
-    <None Remove="TransactionAggregate\" />
-    <None Remove="ProductPriceAggregate\DomainEvents\" />
-    <None Remove="DomainEventHandlers\" />
-    <None Remove="DTOs\" />
-    <None Remove="Helpers\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="TransactionAggregate\" />
-    <Folder Include="ProductPriceAggregate\DomainEvents\" />
-    <Folder Include="DomainEventHandlers\" />
-    <Folder Include="DTOs\" />
-    <Folder Include="Helpers\" />
-  </ItemGroup>
 </Project>

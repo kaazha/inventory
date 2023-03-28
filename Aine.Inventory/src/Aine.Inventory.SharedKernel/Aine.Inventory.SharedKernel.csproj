@@ -9,9 +9,13 @@
   <ItemGroup>
     <PackageReference Include="Ardalis.Specification" />
     <PackageReference Include="MediatR" />
+    <PackageReference Include="Ardalis.Result" />
   </ItemGroup>
-
+ 
   <ItemGroup>
-    <None Remove="Interfaces\ICategoryRepository.config" />
+    <None Remove="Security\Specifications\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Security\Specifications\" />
   </ItemGroup>
 </Project>

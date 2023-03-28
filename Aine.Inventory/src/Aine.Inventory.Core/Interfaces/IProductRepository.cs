@@ -1,6 +1,5 @@
-﻿using Aine.Inventory.Core.CategoryAggregate;
-using Aine.Inventory.Core.ProductAggregate;
-using Aine.Inventory.SharedKernel.Interfaces;
+﻿using Aine.Inventory.Core.ProductAggregate;
+using Aine.Inventory.SharedKernel.Security.Interfaces;
 using Ardalis.Specification;
 
 namespace Aine.Inventory.Core.Interfaces;

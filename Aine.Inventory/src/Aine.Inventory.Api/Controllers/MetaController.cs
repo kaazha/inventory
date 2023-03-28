@@ -1,12 +1,14 @@
 ﻿using System.Diagnostics;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Aine.Inventory.Api.Controllers;
 
 public class MetaController : BaseApiController
 {
   [HttpGet("/")]
+  [SwaggerOperation(Tags = new[] { "Index" })]
   public IActionResult Home()
   {
     var assembly = System.Reflection.Assembly.GetExecutingAssembly();
@@ -32,6 +34,7 @@ public class MetaController : BaseApiController
   /// https://github.com/ardalis/ApiEndpoints
   /// </summary>
   [HttpGet("/info")]
+  [SwaggerOperation(Tags = new[] { "Index" })]
   public ActionResult<string> Info()
   {
     var assembly = System.Reflection.Assembly.GetExecutingAssembly();

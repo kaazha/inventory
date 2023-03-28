@@ -1,7 +1,6 @@
-﻿using System;
-using System.Security.Claims;
-using Aine.Inventory.SharedKernel.Interfaces;
+﻿using System.Security.Claims;
 using Aine.Inventory.SharedKernel.Security;
+using Aine.Inventory.SharedKernel.Security.Interfaces;
 
 namespace Aine.Inventory.Api;
 
@@ -9,9 +8,10 @@ public static class Extensions
 {
   public static IUser AsUser(this ClaimsPrincipal principal)
   {
-    return AuthenticatedUser.Create(
+    return UserIdentity.Create(
         userId: principal.FindFirstValue("UserId").AsInt(),
-        userName: principal.FindFirstValue("UserName")
+        userName: principal.FindFirstValue("UserName"),
+        fullName: principal.FindFirstValue("UserFullName")
         );
   }
 

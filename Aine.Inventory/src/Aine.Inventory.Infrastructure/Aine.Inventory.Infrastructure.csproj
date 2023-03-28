@@ -17,7 +17,5 @@
     <ProjectReference Include="..\Aine.Inventory.Core\Aine.Inventory.Core.csproj" />
     <ProjectReference Include="..\Aine.Inventory.SharedKernel\Aine.Inventory.SharedKernel.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Remove="Data\Sql\" />
-  </ItemGroup>
+
 </Project>

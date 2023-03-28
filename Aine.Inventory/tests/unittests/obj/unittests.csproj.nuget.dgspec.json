@@ -1,0 +1,127 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/kaz/Projects/Aine.Inventory/Aine.Inventory/tests/unittests/unittests.csproj": {}
+  },
+  "projects": {
+    "/Users/kaz/Projects/Aine.Inventory/Aine.Inventory/tests/unittests/unittests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/kaz/Projects/Aine.Inventory/Aine.Inventory/tests/unittests/unittests.csproj",
+        "projectName": "unittests",
+        "projectPath": "/Users/kaz/Projects/Aine.Inventory/Aine.Inventory/tests/unittests/unittests.csproj",
+        "packagesPath": "/Users/kaz/.nuget/packages/",
+        "outputPath": "/Users/kaz/Projects/Aine.Inventory/Aine.Inventory/tests/unittests/obj/",
+        "projectStyle": "PackageReference",
+        "centralPackageVersionsManagementEnabled": true,
+        "configFilePaths": [
+          "/Users/kaz/Projects/Aine.Inventory/Aine.Inventory/NuGet.Config",
+          "/Users/kaz/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.1.0, )"
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.3, )"
+            }
+          },
+          "centralPackageVersions": {
+            "Ardalis.ApiEndpoints": "[4.0.1, )",
+            "Ardalis.ListStartupServices": "[1.1.4, )",
+            "Ardalis.Result": "[4.1.0, )",
+            "Ardalis.Result.AspNetCore": "[4.1.0, )",
+            "Ardalis.SmartEnum": "[2.1.0, )",
+            "Ardalis.Specification": "[6.1.0, )",
+            "Ardalis.Specification.EntityFrameworkCore": "[6.1.0, )",
+            "Autofac": "[6.5.0, )",
+            "Autofac.Extensions.DependencyInjection": "[8.0.0, )",
+            "coverlet.collector": "[3.2.0, )",
+            "FastEndpoints": "[5.7.2, )",
+            "FastEndpoints.ApiExplorer": "[2.0.1, )",
+            "FastEndpoints.Security": "[5.7.2, )",
+            "FastEndpoints.Swagger": "[5.7.2, )",
+            "Mapster": "[7.3.0, )",
+            "MediatR": "[11.1.0, )",
+            "MediatR.Extensions.Microsoft.DependencyInjection": "[11.0.0, )",
+            "Microsoft.ApplicationInsights": "[2.21.0, )",
+            "Microsoft.AspNetCore.Authentication.JwtBearer": "[6.0.13, )",
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "[6.0.12, )",
+            "Microsoft.AspNetCore.Mvc.Testing": "[6.0.12, )",
+            "Microsoft.EntityFrameworkCore": "[7.0.2, )",
+            "Microsoft.EntityFrameworkCore.Design": "[7.0.2, )",
+            "Microsoft.EntityFrameworkCore.InMemory": "[7.0.2, )",
+            "Microsoft.EntityFrameworkCore.Relational": "[7.0.2, )",
+            "Microsoft.EntityFrameworkCore.Sqlite": "[7.0.2, )",
+            "Microsoft.EntityFrameworkCore.Tools": "[7.0.2, )",
+            "Microsoft.NET.Test.Sdk": "[17.4.1, )",
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": "[6.0.11, )",
+            "Moq": "[4.18.3, )",
+            "Newtonsoft.Json": "[13.0.2, )",
+            "ReportGenerator": "[5.1.13, )",
+            "Serilog.AspNetCore": "[6.1.0, )",
+            "Serilog.Sinks.ApplicationInsights": "[4.0.0, )",
+            "SQLite": "[3.13.0, )",
+            "Swashbuckle.AspNetCore": "[6.4.0, )",
+            "Swashbuckle.AspNetCore.Annotations": "[6.4.0, )",
+            "xunit": "[2.4.2, )",
+            "xunit.runner.visualstudio": "[2.4.5, )"
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.101/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

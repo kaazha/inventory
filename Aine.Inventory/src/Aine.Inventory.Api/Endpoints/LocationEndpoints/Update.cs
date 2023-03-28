@@ -19,12 +19,6 @@ public class Update : Endpoint<UpdateLocationRequest>
     _repository = repository;
   }
 
-  [SwaggerOperation(
-    Summary = "Updates a Location",
-    Description = "Updates a new Location",
-    OperationId = "Location.Update",
-    Tags = new[] { "LocationEndpoints" })
-  ]
   public override async Task HandleAsync(
     UpdateLocationRequest request,
     CancellationToken cancellationToken)

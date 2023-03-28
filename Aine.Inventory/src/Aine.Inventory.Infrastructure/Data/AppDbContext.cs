@@ -4,6 +4,7 @@ using Aine.Inventory.Core.ProductAggregate;
 using Aine.Inventory.Core.ProductInventoryAggregate;
 using Aine.Inventory.SharedKernel;
 using Aine.Inventory.SharedKernel.Interfaces;
+using Aine.Inventory.SharedKernel.Security;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aine.Inventory.Infrastructure.Data;
@@ -22,6 +23,7 @@ public class AppDbContext : DbContext
   public DbSet<Product> Products => Set<Product>();
   public DbSet<ProductCategory> Categories => Set<ProductCategory>();
   public DbSet<ProductInventory> ProductInventories => Set<ProductInventory>();
+  public DbSet<User> Users { get; private set; } = default!;
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {

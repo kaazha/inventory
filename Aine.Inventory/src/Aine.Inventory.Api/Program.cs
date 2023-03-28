@@ -13,7 +13,6 @@ using Autofac.Extensions.DependencyInjection;
 using FastEndpoints;
 using FastEndpoints.ApiExplorer;
 using FastEndpoints.Security;
-//using FastEndpoints.Swagger.Swashbuckle;
 using FastEndpoints.Swagger;
 using MediatR;
 using Microsoft.AspNetCore.Http.Features;
@@ -106,7 +105,8 @@ var builder = WebApplication.CreateBuilder(args);
   {
     options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
     options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-    //options.SerializerOptions.IgnoreReadOnlyProperties = true;
+    options.SerializerOptions.IgnoreReadOnlyProperties = true;
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
   });
 
   builder.Services.Configure<FormOptions>(options =>

@@ -1,11 +1,10 @@
-﻿using Aine.Inventory.Core.Interfaces;
-using Aine.Inventory.SharedKernel.Interfaces;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Aine.Inventory.SharedKernel.Security.Interfaces;
 using FastEndpoints;
 using FastEndpoints.Security;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace Aine.Inventory.Api.Endpoints.AuthEndpoint;
 
@@ -32,17 +31,17 @@ public class Auth : Endpoint<AuthRequest, AuthResponse>
 
   public override async Task HandleAsync(AuthRequest request, CancellationToken ct)
   {
-    var userModel = new UserModel(request.UserName, request.Password, request.CorpName);
+    var userModel = new AuthenticationRequest(request.UserName, request.Password, request.CorpName);
     var result = await _authenticator.AuthenticateUserAsync(userModel);
     if (!result.IsSuccess)
     {
-      await SendUnauthorizedAsync(ct);
+      await SendStringAsync(result.Errors?.FirstOrDefault() ?? "Invalid credentials", StatusCodes.Status400BadRequest);
       return;
     }
 
     var token = GenerateFastEndpointsJWTToken(result.Value);
 
-    await SendAsync(new AuthResponse(token));
+    await SendAsync(new AuthResponse(token), cancellation: ct);
   }
 
   private string GenerateFastEndpointsJWTToken(IUser user)
@@ -56,10 +55,11 @@ public class Auth : Endpoint<AuthRequest, AuthResponse>
                   ("Name", user.UserName),
                   ("UserName", user.UserName),
                   ("UserId", user.UserId.ToString()),
-                  ("CorpName", user.CorpName ?? "Default") 
+                  //("CorpName", user.CorpName ?? "Default") 
                 },
-                roles: user.Privileges?.Roles,
-                permissions: user.Privileges?.Permissions);
+                roles: user?.Roles?.Select(r => r.RoleName),
+                permissions: user?.Permissions?.Select(r => r.PermissionName ?? string.Empty)
+              );
 
     return jwtToken;
   }

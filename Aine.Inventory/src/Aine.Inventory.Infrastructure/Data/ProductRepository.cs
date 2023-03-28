@@ -1,8 +1,7 @@
-﻿using System;
-using Aine.Inventory.Core.Interfaces;
+﻿using Aine.Inventory.Core.Interfaces;
 using Aine.Inventory.Core.ProductAggregate;
 using Aine.Inventory.SharedKernel;
-using Aine.Inventory.SharedKernel.Interfaces;
+using Aine.Inventory.SharedKernel.Security.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aine.Inventory.Infrastructure.Data;
