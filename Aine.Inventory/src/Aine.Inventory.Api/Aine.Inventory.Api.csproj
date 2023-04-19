@@ -11,6 +11,7 @@
   
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Aine.Inventory.Web' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Swagger' " />
+
   <ItemGroup>
     <PackageReference Include="Ardalis.ApiEndpoints" />
     <PackageReference Include="Ardalis.ListStartupServices" />

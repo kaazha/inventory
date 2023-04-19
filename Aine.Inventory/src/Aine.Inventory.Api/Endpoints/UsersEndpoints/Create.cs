@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using Aine.Inventory.SharedKernel;
-using Aine.Inventory.SharedKernel.Security;
+﻿using Aine.Inventory.SharedKernel;
 using Aine.Inventory.SharedKernel.Security.Interfaces;
 using FastEndpoints;
 

@@ -18,4 +18,10 @@
     <ProjectReference Include="..\Aine.Inventory.SharedKernel\Aine.Inventory.SharedKernel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="TransactionAggregate\Specifications\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TransactionAggregate\Specifications\" />
+  </ItemGroup>
 </Project>

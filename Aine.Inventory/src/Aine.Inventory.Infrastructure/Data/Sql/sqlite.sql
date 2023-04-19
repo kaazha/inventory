@@ -178,15 +178,16 @@ insert into iam_roles(role_name, role_description) values
 CREATE TABLE "iam_permissions" (
     "id" INTEGER NOT NULL CONSTRAINT "PK_permissions" PRIMARY KEY AUTOINCREMENT,
     "permission_title" TEXT NOT NULL,
-    "permission_description" TEXT NULL
+    "permission_description" TEXT NULL,
+    "permission_type"  TEXT NULL
 );
 
-insert into iam_permissions(permission_title, permission_description) values
-  ('Manage Products', 'create and update products/stock'),
-  ('Manage Transactions', 'Enter transactions'),
-  ('Manage Product Price', 'Update product price history'),
-  ('Manage Inventory', 'Create and update product inventory/quantities'),
-  ('Manage Users', 'Create and assign permissions to users');
+insert into iam_permissions(permission_title, permission_description, permission_type) values
+  ('Products', 'create and update products/stock', 'Object'),
+  ('Transactions', 'Enter transactions', 'Object'),
+  ('Product Price', 'Update product price history', 'Object'),
+  ('Inventory', 'Create and update product inventory/quantities', 'Object'),
+  ('Users', 'Create and assign permissions to users', 'Object');
 
 CREATE TABLE "iam_users" (
     "user_id" INTEGER NOT NULL CONSTRAINT "PK_users" PRIMARY KEY AUTOINCREMENT,

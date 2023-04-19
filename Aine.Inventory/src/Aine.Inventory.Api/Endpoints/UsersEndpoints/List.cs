@@ -18,7 +18,7 @@ public class List : EndpointWithoutRequest<IEnumerable<IUser>>
   {
     Get("/users");
     Claims("UserId", "UserName");
-    //Roles("Admin", "Manager");
+    Roles("Admin", "Manager");
     Permissions("View Users");
   }
 

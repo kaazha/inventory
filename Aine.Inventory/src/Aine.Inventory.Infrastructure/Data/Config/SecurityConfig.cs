@@ -26,6 +26,7 @@ public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
     builder.ToTable("iam_permissions");
     builder.Property(t => t.PermissionTitle).HasColumnName("permission_title").HasMaxLength(128);
     builder.Property(t => t.Description).HasColumnName("permission_description").HasMaxLength(255);
+    builder.Property(t => t.PermissionType).HasColumnName("permission_type").HasConversion<string>().HasMaxLength(50);
     builder.HasKey(p => p.Id);
     builder.HasIndex(p => p.PermissionTitle).IsUnique();
   }

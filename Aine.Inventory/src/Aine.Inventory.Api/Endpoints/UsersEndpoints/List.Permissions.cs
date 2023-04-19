@@ -1,10 +1,10 @@
-﻿using Aine.Inventory.SharedKernel.Security;
-using Aine.Inventory.SharedKernel.Security.Interfaces;
+﻿using Aine.Inventory.SharedKernel.Security.Interfaces;
 using FastEndpoints;
+using static Aine.Inventory.Api.Endpoints.AuthEndpoint.ListPermissions;
 
 namespace Aine.Inventory.Api.Endpoints.AuthEndpoint;
 
-public class ListPermissions: EndpointWithoutRequest<IEnumerable<Permission>>
+public class ListPermissions: EndpointWithoutRequest<IEnumerable<PermissionRecord>>
 {
   private readonly IUserService _userService;
 
@@ -19,8 +19,11 @@ public class ListPermissions: EndpointWithoutRequest<IEnumerable<Permission>>
     //AllowAnonymous();
   }
 
-  public override async Task<IEnumerable<Permission>> ExecuteAsync(CancellationToken cancellationToken)
+  public override async Task<IEnumerable<PermissionRecord>> ExecuteAsync(CancellationToken cancellationToken)
   {
-    return await _userService.GetPermissionsAsync();
+    var permissions =  await _userService.GetPermissionsAsync();
+    return permissions.Select(p => new PermissionRecord(p.Id, p.PermissionTitle, p.Description, p.PermissionType?.ToString()));
   }
+
+  public record PermissionRecord(int Id, string PermissionTitle, string? Description, string? PermissionType);
 }

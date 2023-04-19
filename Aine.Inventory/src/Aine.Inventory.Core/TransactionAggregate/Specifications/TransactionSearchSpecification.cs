@@ -1,10 +1,6 @@
-﻿using System;
-using Aine.Inventory.Core.ProductAggregate;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using Ardalis.Specification;
 using Aine.Inventory.SharedKernel;
-using Aine.Inventory.Core.ProductAggregate.Specifications;
-using System.Transactions;
 using static System.Math;
 
 namespace Aine.Inventory.Core.TransactionAggregate;
@@ -49,45 +45,8 @@ public class TransactionSearchSpecification : Specification<ProductTransaction, 
           Notes = t.Notes
         })
         .Where(predicate)
-        .OrderBy(p => p.ProductId)
-        .ThenBy(p => p.TransactionType)
-        .ThenByDescending(p => p.TransactionDate)
-        ;//.Limit();
+        .OrderByDescending(p => p.TransactionDate);
+
+    if (options.Take > 0) Query.Take(options.Take.Value);
   }
-}
-
-public class TransactionDto
-{
-  public int TransactionId { get; set; }
-  public int ProductId { get; set; }
-  public string? ProductNumber { get; set; }
-  public string? ProductName { get; set; }
-  public DateTime TransactionDate { get; set; }
-  public string? TransactionType { get; set; }
-  public string? ReferenceNumber { get; set; }
-  public int Quantity { get; set; }
-  public double? TotalCost { get; set; }
-  public string? Notes { get; set; }
-  public string? CreatedBy { get; set; }
-  public DateTime DateCreated { get; set; }
-  public string? ModifiedBy { get; set; }
-  public DateTime? ModifiedDate { get; set; }
-}
-
-public class TransactionSearchOptions
-{
-  public int? ProductId { get; set; }
-  public string? ProductNumber { get; set; }
-  public DateTime? TransactionDateStart { get; set; }
-  public DateTime? TransactionDateEnd { get; set; }
-  public string? ReferenceNumber { get; set; }
-  public string[]? TransactionTypes { get; set; }
-
-  public bool IsValid() =>
-    ProductId > 0 ||
-    !string.IsNullOrEmpty(ProductNumber) ||
-    !string.IsNullOrEmpty(this.ReferenceNumber) ||
-   TransactionTypes != null ||
-    TransactionDateStart is { } ||
-    (TransactionDateEnd is { } && (TransactionDateStart is null || TransactionDateEnd >= TransactionDateStart));
 }

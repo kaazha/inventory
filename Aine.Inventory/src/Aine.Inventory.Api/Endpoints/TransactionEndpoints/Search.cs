@@ -1,11 +1,10 @@
-﻿using System;
-using Aine.Inventory.Core.TransactionAggregate;
+﻿using Aine.Inventory.Core.TransactionAggregate;
 using Aine.Inventory.SharedKernel.Interfaces;
 using FastEndpoints;
 
 namespace Aine.Inventory.Api.Endpoints.TransactionEndpoints;
 
-public class Search : Endpoint<TransactionSearchOptions, ICollection<TransactionDto>>
+public class Search : Endpoint<TransactionSearchOptions, TransactionSearchResponse>
 {
   private readonly IReadRepository<ProductTransaction> _repository;
 
@@ -18,14 +17,16 @@ public class Search : Endpoint<TransactionSearchOptions, ICollection<Transaction
   {
     Get("/transactions/search");
     Post("/transactions/search");
-    AllowAnonymous();
+    Claims("UserId", "UserName");
+    Roles("Admin", "Manager");
+    Permissions("View Transactions");
   }
 
-  public override async Task<ICollection<TransactionDto>> ExecuteAsync(TransactionSearchOptions searchOptions, CancellationToken cancellationToken)
+  public override async Task<TransactionSearchResponse> ExecuteAsync(TransactionSearchOptions searchOptions, CancellationToken cancellationToken)
   {
     var specification = new TransactionSearchSpecification(searchOptions);
     var transactions = await _repository.ListAsync(specification, cancellationToken);
-    return transactions;
+    return new TransactionSearchResponse { Transactions = transactions, SearchOptions = searchOptions };
   }
 }
 
