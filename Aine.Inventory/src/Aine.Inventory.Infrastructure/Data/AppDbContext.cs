@@ -2,6 +2,7 @@
 using Aine.Inventory.Core.CategoryAggregate;
 using Aine.Inventory.Core.ProductAggregate;
 using Aine.Inventory.Core.ProductInventoryAggregate;
+using Aine.Inventory.Core.TransactionAggregate;
 using Aine.Inventory.SharedKernel;
 using Aine.Inventory.SharedKernel.Interfaces;
 using Aine.Inventory.SharedKernel.Security;
@@ -23,6 +24,7 @@ public class AppDbContext : DbContext
   public DbSet<Product> Products => Set<Product>();
   public DbSet<ProductCategory> Categories => Set<ProductCategory>();
   public DbSet<ProductInventory> ProductInventories => Set<ProductInventory>();
+  public DbSet<ProductTransaction> Transactions => Set<ProductTransaction>();
   public DbSet<User> Users { get; private set; } = default!;
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)

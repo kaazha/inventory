@@ -20,7 +20,6 @@
     <PackageReference Include="FastEndpoints" />
     <PackageReference Include="FastEndpoints.ApiExplorer" />
     <PackageReference Include="FastEndpoints.Swagger" />
-    <!--<PackageReference Include="FastEndpoints.Swagger.Swashbuckle" />-->
     <PackageReference Include="FastEndpoints.Security" />
     <PackageReference Include="MediatR" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" />
@@ -36,7 +35,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
-    <!--<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />-->
   </ItemGroup>
   
   <ItemGroup>

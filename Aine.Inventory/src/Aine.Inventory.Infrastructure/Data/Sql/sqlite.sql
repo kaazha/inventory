@@ -118,6 +118,8 @@ values
     ('DateCreated', '2023-01-01'),
     ('InventoryItemName', 'Inventory Item'),
     ('MultipleLocations', 'true'),
+    ('Decimal Places', '3'),
+    ('Currency', 'ETB'),
     ('TransactionTypes', '[{"name": "Sales", "type": "outflow", "affectsQuantities": true}, {"name": "Recieve Items", "type": "inflow", "affectsQuantities": true}, {"name": "Transfer", "type": "transfer", "affectsQuantities": true}]');
 
 CREATE UNIQUE INDEX "IX_location_name" ON "location" ("name");

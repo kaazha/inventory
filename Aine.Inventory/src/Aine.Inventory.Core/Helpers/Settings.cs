@@ -8,6 +8,7 @@ namespace Aine.Inventory.Core;
 public abstract class AbstractSettings : ISettings
 {
   private IDictionary<string, string>? _settings;
+  private int? _decimalPlaces;
 
   protected IDictionary<string, string> Settings
   {
@@ -23,4 +24,12 @@ public abstract class AbstractSettings : ISettings
   public int GetInt32(string key, int defaultValue) => int.TryParse(this[key], out var value) ? value : defaultValue;
   public abstract Task Update(string key, string value);
   public abstract Task Update(IEnumerable<KeyValuePair<string, string>> updates, CancellationToken cancellationToken);
+
+  public int DecimalPlaces => _decimalPlaces ??= GetInt32(SettingKeys.DECIMAL_PLACES, 2);
+}
+
+public static class SettingKeys
+{
+  public const string DECIMAL_PLACES = "Decimal Places";
+  public const string CURRENCY = "Currency";
 }

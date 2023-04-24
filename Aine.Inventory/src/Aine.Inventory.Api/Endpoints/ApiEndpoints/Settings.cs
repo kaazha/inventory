@@ -8,7 +8,8 @@ public class Api : EndpointWithoutRequest<ContentResult>
 {
   public override void Configure()
   {
-    Get("/");
+    Verbs(Http.GET);
+    Routes("/");
     AllowAnonymous();
   }
 

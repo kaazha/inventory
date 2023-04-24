@@ -1,4 +1,6 @@
-﻿namespace Aine.Inventory.Core.TransactionAggregate;
+﻿using System.Text.Json.Serialization;
+
+namespace Aine.Inventory.Core.TransactionAggregate;
 
 public class RecentTransactionOptions
 {
@@ -11,9 +13,10 @@ public class RecentTransactionOptions
   /// <summary>
   /// The [max] number of rows to return
   /// </summary>
+  [JsonPropertyName("maxCount")]
   public int? Take { get; set; }
 
-  public TransactionSearchOptions ToTransactionSearchOptions()
+  public virtual TransactionSearchOptions ToTransactionSearchOptions()
   {
     var dateRange = ComputeDateRange();
     if (dateRange == null && this.Take == null)

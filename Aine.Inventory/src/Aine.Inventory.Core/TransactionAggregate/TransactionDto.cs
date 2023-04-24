@@ -1,7 +1,9 @@
 ﻿namespace Aine.Inventory.Core.TransactionAggregate;
+using System.Text.Json.Serialization;
 
 public class TransactionDto
 {
+  [JsonPropertyName("id")]
   public int TransactionId { get; set; }
   public int ProductId { get; set; }
   public string? ProductNumber { get; set; }
